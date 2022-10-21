@@ -17,6 +17,7 @@ public class PhysicsWorld : MonoBehaviour
 
     private void Awake()
     {
+        Application.targetFrameRate = 30;
         if (Instance != null) return;
         Instance = this;
         Physics.autoSimulation = false;
@@ -96,7 +97,6 @@ public class PhysicsWorld : MonoBehaviour
         if (!Asynchronous)
         {
             PhysicsSpace.Update();
-            Thread.Sleep(20);
         }
         PositionPhysicsObjects();
     }
