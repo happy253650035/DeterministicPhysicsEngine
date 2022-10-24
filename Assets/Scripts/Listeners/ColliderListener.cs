@@ -7,7 +7,7 @@ using UnityEngine;
 [RequireComponent(typeof(PhysicsObject))]
 public class ColliderListener : MonoBehaviour
 {
-    private struct CollisionInfo
+    public struct CollisionInfo
     {
         public EntityCollidable Sender;
         public Collidable Other;

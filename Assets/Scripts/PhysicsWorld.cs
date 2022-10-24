@@ -85,10 +85,6 @@ public class PhysicsWorld : MonoBehaviour
             var y = Convert.ToDouble((decimal) worldPos.Y);
             var z = Convert.ToDouble((decimal) worldPos.Z);
             character.transform.position = new Vector3((float) x, (float) y, (float) z);
-            var orientation = character.mCharacterController.Body.orientation;
-            character.transform.rotation = new Quaternion((float) Convert.ToDouble((decimal) orientation.X),
-                (float) Convert.ToDouble((decimal) orientation.Y), (float) Convert.ToDouble((decimal) orientation.Z),
-                (float) Convert.ToDouble((decimal) orientation.W));
         }
     }
 

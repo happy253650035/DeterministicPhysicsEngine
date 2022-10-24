@@ -10,7 +10,11 @@ public class PhysicsBox : PhysicsObject
     private void Awake()
     {
         var box = GetComponent<BoxCollider>();
-        var size = Vector3.Scale(box.size, transform.localScale);
+        var size = box.size;
+        if (useScale)
+        {
+            size = Vector3.Scale(box.size, transform.localScale);
+        }
         var center = box.center;
         mCenterX = center.x;
         mCenterY = center.y;

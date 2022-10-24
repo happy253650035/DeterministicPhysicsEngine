@@ -7,6 +7,7 @@ public class PhysicsObject : MonoBehaviour
 {
     public bool isStatic;
     public bool isBullet;
+    public bool useScale;
     public float mass = 1;
     public float kineticFriction;
     public float staticFriction;

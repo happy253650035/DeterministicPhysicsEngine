@@ -26,6 +26,10 @@ public class PhysicsCompound : PhysicsObject
         foreach (var box in boxes)
         {
             var size = box.size;
+            if (useScale)
+            {
+                size = Vector3.Scale(box.size, box.transform.localScale);
+            }
             var pos = box.transform.localPosition + box.center;
             var position = new BEPUutilities.Vector3(Convert.ToDecimal(pos.x), Convert.ToDecimal(pos.y),
                 Convert.ToDecimal(pos.z));

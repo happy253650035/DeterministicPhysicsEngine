@@ -1,4 +1,8 @@
 using System;
+using System.Collections.Generic;
+using BEPUphysics.BroadPhaseEntries;
+using BEPUphysics.BroadPhaseEntries.MobileCollidables;
+using BEPUphysics.NarrowPhaseSystems.Pairs;
 using UnityEngine;
 using CharacterController = BEPUphysics.Character.CharacterController;
 
@@ -8,6 +12,12 @@ public class BaseCharacterController : MonoBehaviour
     public float mass = 2;
     public float speed = 0.5f;
     public CharacterController mCharacterController;
+    public event ColliderListener.CollisionEnterDetected OnEnterCollision;
+    public event ColliderListener.CollisionEnterDetectedMainThread OnEnterCollisionMainThread;
+    public event ColliderListener.CollisionEnterDetected OnExitCollision;
+    public event ColliderListener.CollisionEnterDetectedMainThread OnExitCollisionMainThread;
+    private readonly List<ColliderListener.CollisionInfo> _collisionEnterInfos = new();
+    private readonly List<ColliderListener.CollisionInfo> _collisionExitInfos = new();
 
     public bool IsActive { get; private set; }
 
@@ -25,6 +35,28 @@ public class BaseCharacterController : MonoBehaviour
         mCharacterController.Body.Mass = Convert.ToDecimal(mass);
         mCharacterController.SpeedScale *= Convert.ToDecimal(speed);
         Activate();
+    }
+
+    private void Start()
+    {
+        mCharacterController.Body.CollisionInformation.Events.InitialCollisionDetected +=
+            InitialCollisionDetected;
+        mCharacterController.Body.CollisionInformation.Events.CollisionEnded +=
+            CollisionEnded;
+    }
+    
+    private void InitialCollisionDetected(EntityCollidable sender, Collidable other, CollidablePairHandler pair)
+    {
+        OnEnterCollision?.Invoke(sender, other, pair);
+        var info = new ColliderListener.CollisionInfo {Sender = sender, Other = other, Pair = pair};
+        _collisionEnterInfos.Add(info);
+    }
+
+    private void CollisionEnded(EntityCollidable sender, Collidable other, CollidablePairHandler pair)
+    {
+        OnExitCollision?.Invoke(sender, other, pair);
+        var info = new ColliderListener.CollisionInfo {Sender = sender, Other = other, Pair = pair};
+        _collisionExitInfos.Add(info);
     }
 
     public void Activate()
