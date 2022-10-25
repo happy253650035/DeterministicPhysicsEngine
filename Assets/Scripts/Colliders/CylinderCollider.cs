@@ -15,7 +15,7 @@ public class CylinderCollider : MonoBehaviour
         DrawCircle(position - new Vector3(0, offsetY, 0), radius);
     }
 
-    private void DrawCircle(Vector3 center, float radius)
+    private void DrawCircle(Vector3 c, float r)
     {
         const int sideCount = 30;
         const int intervalAngle = 360 / sideCount;
@@ -25,10 +25,10 @@ public class CylinderCollider : MonoBehaviour
             var angleTo = intervalAngle * (i + 1) * Mathf.Deg2Rad;
             var position = transform.position;
             Gizmos.DrawLine(
-                new Vector3(radius * Mathf.Cos(angleFrom) + center.x, center.y,
-                    radius * Mathf.Sin(angleFrom) + center.z),
-                new Vector3(radius * Mathf.Cos(angleTo) + center.x, center.y,
-                    radius * Mathf.Sin(angleTo) + center.z));
+                new Vector3(r * Mathf.Cos(angleFrom) + c.x, c.y,
+                    r * Mathf.Sin(angleFrom) + c.z),
+                new Vector3(r * Mathf.Cos(angleTo) + c.x, c.y,
+                    r * Mathf.Sin(angleTo) + c.z));
         }
     }
 }

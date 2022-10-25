@@ -30,8 +30,6 @@ public class PhysicsCapsule : PhysicsObject
         _capsure.orientation = new BEPUutilities.Quaternion(Convert.ToDecimal(orientation.x),
             Convert.ToDecimal(orientation.y), Convert.ToDecimal(orientation.z), Convert.ToDecimal(orientation.w));
         mEntity = _capsure;
-        mEntity.angularVelocity = new BEPUutilities.Vector3(Convert.ToDecimal(angularVelocity.x),
-            Convert.ToDecimal(angularVelocity.y), Convert.ToDecimal(angularVelocity.z));
         Activate();
     }
 }

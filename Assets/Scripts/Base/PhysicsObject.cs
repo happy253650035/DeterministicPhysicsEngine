@@ -12,7 +12,6 @@ public class PhysicsObject : MonoBehaviour
     public float kineticFriction;
     public float staticFriction;
     public float bounciness;
-    public Vector3 angularVelocity;
     public Entity mEntity;
     [HideInInspector]
     public float mCenterX;

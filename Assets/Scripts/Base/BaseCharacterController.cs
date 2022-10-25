@@ -12,10 +12,14 @@ public class BaseCharacterController : MonoBehaviour
     public float mass = 2;
     public float speed = 0.5f;
     public CharacterController mCharacterController;
-    public event ColliderListener.CollisionEnterDetected OnEnterCollision;
-    public event ColliderListener.CollisionEnterDetectedMainThread OnEnterCollisionMainThread;
-    public event ColliderListener.CollisionEnterDetected OnExitCollision;
-    public event ColliderListener.CollisionEnterDetectedMainThread OnExitCollisionMainThread;
+    public delegate void CharacterEnterDetectedMainThread(EntityCollidable sender, Collidable other,
+        CollidablePairHandler pair, BaseCharacterController character);
+    public delegate void CharacterExitDetectedMainThread(EntityCollidable sender, Collidable other,
+        CollidablePairHandler pair, BaseCharacterController character);
+    public event ColliderListener.CollisionEnterDetected OnEnterCharacter;
+    public event CharacterEnterDetectedMainThread OnEnterCharacterMainThread;
+    public event ColliderListener.CollisionEnterDetected OnExitCharacter;
+    public event CharacterExitDetectedMainThread OnExitCharacterMainThread;
     private readonly List<ColliderListener.CollisionInfo> _collisionEnterInfos = new();
     private readonly List<ColliderListener.CollisionInfo> _collisionExitInfos = new();
 
@@ -47,14 +51,14 @@ public class BaseCharacterController : MonoBehaviour
     
     private void InitialCollisionDetected(EntityCollidable sender, Collidable other, CollidablePairHandler pair)
     {
-        OnEnterCollision?.Invoke(sender, other, pair);
+        OnEnterCharacter?.Invoke(sender, other, pair);
         var info = new ColliderListener.CollisionInfo {Sender = sender, Other = other, Pair = pair};
         _collisionEnterInfos.Add(info);
     }
 
     private void CollisionEnded(EntityCollidable sender, Collidable other, CollidablePairHandler pair)
     {
-        OnExitCollision?.Invoke(sender, other, pair);
+        OnExitCharacter?.Invoke(sender, other, pair);
         var info = new ColliderListener.CollisionInfo {Sender = sender, Other = other, Pair = pair};
         _collisionExitInfos.Add(info);
     }
@@ -76,5 +80,19 @@ public class BaseCharacterController : MonoBehaviour
     public void Jump()
     {
         mCharacterController.Jump();
+    }
+    
+    private void Update()
+    {
+        foreach (var info in _collisionEnterInfos)
+        {
+            OnEnterCharacterMainThread?.Invoke(info.Sender, info.Other, info.Pair, this);
+        }
+        foreach (var info in _collisionExitInfos)
+        {
+            OnExitCharacterMainThread?.Invoke(info.Sender, info.Other, info.Pair, this);
+        }
+        _collisionEnterInfos.Clear();
+        _collisionExitInfos.Clear();
     }
 }
