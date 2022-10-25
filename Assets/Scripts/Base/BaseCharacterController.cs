@@ -11,6 +11,7 @@ public class BaseCharacterController : MonoBehaviour
 {
     public float mass = 2;
     public float speed = 0.5f;
+    public float gravity = 9.81f;
     public CharacterController mCharacterController;
     public delegate void CharacterEnterDetectedMainThread(EntityCollidable sender, Collidable other,
         CollidablePairHandler pair, BaseCharacterController character);
@@ -38,6 +39,7 @@ public class BaseCharacterController : MonoBehaviour
         mCharacterController.Body.Radius = Convert.ToDecimal(capsule.radius);
         mCharacterController.Body.Mass = Convert.ToDecimal(mass);
         mCharacterController.SpeedScale *= Convert.ToDecimal(speed);
+        mCharacterController.Body.Gravity = new BEPUutilities.Vector3(0, -Convert.ToDecimal(gravity), 0);
         Activate();
     }
 

@@ -68,23 +68,23 @@ public class PhysicsWorld : MonoBehaviour
         foreach (var po in _physicsObjects)
         {
             var worldPos = po.mEntity.position;
-            var x = Convert.ToDouble((decimal) worldPos.X);
-            var y = Convert.ToDouble((decimal) worldPos.Y);
-            var z = Convert.ToDouble((decimal) worldPos.Z);
+            var x = (float) worldPos.X;
+            var y = (float) worldPos.Y;
+            var z = (float) worldPos.Z;
             po.transform.position = new Vector3((float) x - po.mCenterX, (float) y - po.mCenterY, (float) z - po.mCenterZ);
             var orientation = po.mEntity.orientation;
-            po.transform.rotation = new Quaternion((float) Convert.ToDouble((decimal) orientation.X),
-                (float) Convert.ToDouble((decimal) orientation.Y), (float) Convert.ToDouble((decimal) orientation.Z),
-                (float) Convert.ToDouble((decimal) orientation.W));
+            po.transform.rotation = new Quaternion((float)orientation.X,
+                (float)orientation.Y, (float)orientation.Z,
+                (float)orientation.W);
         }
 
         foreach (var character in _characterControllers)
         {
             var worldPos = character.mCharacterController.Body.position;
-            var x = Convert.ToDouble((decimal) worldPos.X);
-            var y = Convert.ToDouble((decimal) worldPos.Y);
-            var z = Convert.ToDouble((decimal) worldPos.Z);
-            character.transform.position = new Vector3((float) x, (float) y, (float) z);
+            var x = (float) worldPos.X;
+            var y = (float) worldPos.Y;
+            var z = (float) worldPos.Z;
+            character.transform.position = new Vector3(x, y, z);
         }
     }
 
