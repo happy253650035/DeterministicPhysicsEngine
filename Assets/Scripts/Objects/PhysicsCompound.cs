@@ -14,6 +14,7 @@ public class PhysicsCompound : PhysicsObject
         var spheres = GetComponentsInChildren<SphereCollider>();
         var boxes = GetComponentsInChildren<BoxCollider>();
         var capsules = GetComponentsInChildren<CapsuleCollider>();
+        var cylinders = GetComponentsInChildren<CylinderCollider>();
         var compoundShapes = new List<CompoundShapeEntry>();
         foreach (var sphere in spheres)
         {
@@ -43,6 +44,14 @@ public class PhysicsCompound : PhysicsObject
             var position = new BEPUutilities.Vector3(Convert.ToDecimal(pos.x), Convert.ToDecimal(pos.y),
                 Convert.ToDecimal(pos.z));
             var shape = new CompoundShapeEntry(new CapsuleShape(Convert.ToDecimal(capsule.height), Convert.ToDecimal(capsule.radius)), position);
+            compoundShapes.Add(shape);
+        }
+        foreach (var cylinder in cylinders)
+        {
+            var pos = cylinder.transform.localPosition + cylinder.center;
+            var position = new BEPUutilities.Vector3(Convert.ToDecimal(pos.x), Convert.ToDecimal(pos.y),
+                Convert.ToDecimal(pos.z));
+            var shape = new CompoundShapeEntry(new CapsuleShape(Convert.ToDecimal(cylinder.height), Convert.ToDecimal(cylinder.radius)), position);
             compoundShapes.Add(shape);
         }
 

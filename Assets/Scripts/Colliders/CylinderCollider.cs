@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class CylinderCollider : MonoBehaviour
@@ -9,13 +8,12 @@ public class CylinderCollider : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        var offsetY = height / 2;
-        var position = transform.position;
-        DrawCircle(position + new Vector3(0, offsetY, 0), radius);
-        DrawCircle(position - new Vector3(0, offsetY, 0), radius);
+        var offset = height / 2;
+        DrawCircle(offset, radius);
+        DrawCircle(-offset, radius);
     }
 
-    private void DrawCircle(Vector3 c, float r)
+    private void DrawCircle(float offset, float r)
     {
         const int sideCount = 30;
         const int intervalAngle = 360 / sideCount;
@@ -23,12 +21,11 @@ public class CylinderCollider : MonoBehaviour
         {
             var angleFrom = intervalAngle * i * Mathf.Deg2Rad;
             var angleTo = intervalAngle * (i + 1) * Mathf.Deg2Rad;
-            var position = transform.position;
-            Gizmos.DrawLine(
-                new Vector3(r * Mathf.Cos(angleFrom) + c.x, c.y,
-                    r * Mathf.Sin(angleFrom) + c.z),
-                new Vector3(r * Mathf.Cos(angleTo) + c.x, c.y,
-                    r * Mathf.Sin(angleTo) + c.z));
+            var from = transform.localRotation * new Vector3(r * Mathf.Cos(angleFrom), offset,
+                r * Mathf.Sin(angleFrom)) + transform.position;
+            var to = transform.localRotation * new Vector3(r * Mathf.Cos(angleTo), offset,
+                r * Mathf.Sin(angleTo)) + transform.position;
+            Gizmos.DrawLine(from, to);
         }
     }
 }
