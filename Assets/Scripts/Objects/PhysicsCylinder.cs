@@ -29,6 +29,10 @@ public class PhysicsCylinder : PhysicsObject
         _cylinder.orientation = new BEPUutilities.Quaternion(Convert.ToDecimal(orientation.x),
             Convert.ToDecimal(orientation.y), Convert.ToDecimal(orientation.z), Convert.ToDecimal(orientation.w));
         mEntity = _cylinder;
+    }
+    
+    private void Start()
+    {
         Activate();
     }
 }

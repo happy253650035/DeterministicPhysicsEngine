@@ -28,6 +28,10 @@ public class PhysicsSphere : PhysicsObject
         _sphere.orientation = new BEPUutilities.Quaternion(Convert.ToDecimal(orientation.x),
             Convert.ToDecimal(orientation.y), Convert.ToDecimal(orientation.z), Convert.ToDecimal(orientation.w));
         mEntity = _sphere;
+    }
+    
+    private void Start()
+    {
         Activate();
     }
 }

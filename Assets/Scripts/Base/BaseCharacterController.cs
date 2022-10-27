@@ -26,8 +26,7 @@ public class BaseCharacterController : MonoBehaviour
 
     public bool IsActive { get; private set; }
 
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         var capsule = GetComponent<CapsuleCollider>();
         mCharacterController = new CharacterController();
@@ -40,11 +39,11 @@ public class BaseCharacterController : MonoBehaviour
         mCharacterController.Body.Mass = Convert.ToDecimal(mass);
         mCharacterController.SpeedScale *= Convert.ToDecimal(speed);
         mCharacterController.Body.Gravity = new BEPUutilities.Vector3(0, -Convert.ToDecimal(gravity), 0);
-        Activate();
     }
-
+    
     private void Start()
     {
+        Activate();
         mCharacterController.Body.CollisionInformation.Events.InitialCollisionDetected +=
             InitialCollisionDetected;
         mCharacterController.Body.CollisionInformation.Events.CollisionEnded +=

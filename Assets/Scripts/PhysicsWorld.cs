@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -8,10 +7,10 @@ public class PhysicsWorld : MonoBehaviour
 {
     public bool Asynchronous;
     public static PhysicsWorld Instance;
-    public Space PhysicsSpace;
 
     private bool _useThread;
     private Thread _physicThread;
+    private Space _physicsSpace;
     private readonly List<PhysicsObject> _physicsObjects = new();
     private readonly List<BaseCharacterController> _characterControllers = new();
 
@@ -21,9 +20,9 @@ public class PhysicsWorld : MonoBehaviour
         if (Instance != null) return;
         Instance = this;
         Physics.autoSimulation = false;
-        PhysicsSpace = new Space();
-        PhysicsSpace.ForceUpdater.gravity = new BEPUutilities.Vector3(0, -9.81m, 0);
-        PhysicsSpace.TimeStepSettings.TimeStepDuration = 0.02M;
+        _physicsSpace = new Space();
+        _physicsSpace.ForceUpdater.gravity = new BEPUutilities.Vector3(0, -9.81m, 0);
+        _physicsSpace.TimeStepSettings.TimeStepDuration = 0.02M;
         if (!Asynchronous) return;
         _physicThread = new Thread(Run);
         _physicThread.Start();
@@ -33,7 +32,7 @@ public class PhysicsWorld : MonoBehaviour
     {
         while (true)
         {
-            PhysicsSpace.Update();
+            _physicsSpace.Update();
             Thread.Sleep(20);
         }
         // ReSharper disable once FunctionNeverReturns
@@ -41,25 +40,25 @@ public class PhysicsWorld : MonoBehaviour
 
     public void AddPhysicsObject(PhysicsObject po)
     {
-        Instance.PhysicsSpace.Add(po.mEntity);
+        Instance._physicsSpace.Add(po.mEntity);
         _physicsObjects.Add(po);
     }
 
     public void RemovePhysicsObject(PhysicsObject po)
     {
-        Instance.PhysicsSpace.Remove(po.mEntity);
+        Instance._physicsSpace.Remove(po.mEntity);
         _physicsObjects.Remove(po);
     }
 
     public void AddPhysicsCharacterController(BaseCharacterController controller)
     {
-        Instance.PhysicsSpace.Add(controller.mCharacterController);
+        Instance._physicsSpace.Add(controller.mCharacterController);
         _characterControllers.Add(controller);
     }
 
     public void RemovePhysicsCharacterController(BaseCharacterController controller)
     {
-        Instance.PhysicsSpace.Remove(controller.mCharacterController);
+        Instance._physicsSpace.Remove(controller.mCharacterController);
         _characterControllers.Remove(controller);
     }
 
@@ -92,7 +91,7 @@ public class PhysicsWorld : MonoBehaviour
     {
         if (!Asynchronous)
         {
-            PhysicsSpace.Update();
+            _physicsSpace.Update();
         }
         PositionPhysicsObjects();
     }
