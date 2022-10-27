@@ -4,6 +4,7 @@ using BEPUphysics.NarrowPhaseSystems.Pairs;
 using BEPUphysics.CollisionRuleManagement;
 using System;
 using BEPUutilities.DataStructures;
+using UnityEngine;
 
 namespace BEPUphysics.BroadPhaseEntries
 {
@@ -16,6 +17,14 @@ namespace BEPUphysics.BroadPhaseEntries
         protected Collidable()
         {
             shapeChangedDelegate = OnShapeChanged;
+        }
+
+        protected GameObject gameObject;
+
+        public GameObject GameObject
+        {
+            get => gameObject;
+            set => gameObject = value;
         }
 
 
