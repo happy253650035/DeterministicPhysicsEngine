@@ -56,8 +56,6 @@ public class PhysicsCompound : PhysicsObject
         }
 
         _body = isStatic ? new CompoundBody(compoundShapes) : new CompoundBody(compoundShapes, Convert.ToDecimal(mass));
-        _body.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(staticFriction),
-            Convert.ToDecimal(kineticFriction), Convert.ToDecimal(bounciness));
 
         var p = transform.position;
         _body.position = new BEPUutilities.Vector3(Convert.ToDecimal(p.x),
@@ -66,10 +64,22 @@ public class PhysicsCompound : PhysicsObject
         _body.orientation = new BEPUutilities.Quaternion(Convert.ToDecimal(orientation.x),
             Convert.ToDecimal(orientation.y), Convert.ToDecimal(orientation.z), Convert.ToDecimal(orientation.w));
         mEntity = _body;
+        mEntity.CollisionInformation.GameObject = gameObject;
     }
 
     private void Start()
     {
+        var material = GetComponent<PhysicsMaterial>();
+        if (material)
+        {
+            _body.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(material.staticFriction),
+                Convert.ToDecimal(material.kineticFriction), Convert.ToDecimal(material.bounciness));
+        }
+        else
+        {
+            _body.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(PhysicsWorld.Instance.staticFriction),
+                Convert.ToDecimal(PhysicsWorld.Instance.kineticFriction), Convert.ToDecimal(PhysicsWorld.Instance.bounciness));
+        }
         Activate();
     }
 }

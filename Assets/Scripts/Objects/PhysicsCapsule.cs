@@ -10,18 +10,12 @@ public class PhysicsCapsule : PhysicsObject
     private void Awake()
     {
         var capsule = GetComponent<CapsuleCollider>();
-        var center = capsule.center;
-        mCenterX = center.x;
-        mCenterY = center.y;
-        mCenterZ = center.z;
+        center = capsule.center;
 
         _capsure = isStatic
             ? new Capsule(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(capsule.height), Convert.ToDecimal(capsule.radius))
             : new Capsule(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(capsule.height), Convert.ToDecimal(capsule.radius),
                 Convert.ToDecimal(mass));
-
-        _capsure.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(staticFriction),
-            Convert.ToDecimal(kineticFriction), Convert.ToDecimal(bounciness));
 
         var pos = transform.position + center;
         _capsure.position = new BEPUutilities.Vector3(Convert.ToDecimal(pos.x),
@@ -30,10 +24,22 @@ public class PhysicsCapsule : PhysicsObject
         _capsure.orientation = new BEPUutilities.Quaternion(Convert.ToDecimal(orientation.x),
             Convert.ToDecimal(orientation.y), Convert.ToDecimal(orientation.z), Convert.ToDecimal(orientation.w));
         mEntity = _capsure;
+        mEntity.CollisionInformation.GameObject = gameObject;
     }
     
     private void Start()
     {
+        var material = GetComponent<PhysicsMaterial>();
+        if (material)
+        {
+            _capsure.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(material.staticFriction),
+                Convert.ToDecimal(material.kineticFriction), Convert.ToDecimal(material.bounciness));
+        }
+        else
+        {
+            _capsure.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(PhysicsWorld.Instance.staticFriction),
+                Convert.ToDecimal(PhysicsWorld.Instance.kineticFriction), Convert.ToDecimal(PhysicsWorld.Instance.bounciness));
+        }
         Activate();
     }
 }

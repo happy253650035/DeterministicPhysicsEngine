@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
@@ -6,6 +7,10 @@ using Space = BEPUphysics.Space;
 public class PhysicsWorld : MonoBehaviour
 {
     public bool Asynchronous;
+    public float gravity = 9.81f;
+    public float kineticFriction;
+    public float staticFriction;
+    public float bounciness;
     public static PhysicsWorld Instance;
 
     private bool _useThread;
@@ -21,7 +26,7 @@ public class PhysicsWorld : MonoBehaviour
         Instance = this;
         Physics.autoSimulation = false;
         _physicsSpace = new Space();
-        _physicsSpace.ForceUpdater.gravity = new BEPUutilities.Vector3(0, -9.81m, 0);
+        _physicsSpace.ForceUpdater.gravity = new BEPUutilities.Vector3(0, -Convert.ToDecimal(gravity), 0);
         _physicsSpace.TimeStepSettings.TimeStepDuration = 0.02M;
         if (!Asynchronous) return;
         _physicThread = new Thread(Run);
@@ -70,11 +75,11 @@ public class PhysicsWorld : MonoBehaviour
             var x = (float) worldPos.X;
             var y = (float) worldPos.Y;
             var z = (float) worldPos.Z;
-            po.transform.position = new Vector3((float) x - po.mCenterX, (float) y - po.mCenterY, (float) z - po.mCenterZ);
+            po.transform.position = new Vector3(x, y, z) - po.center;
             var orientation = po.mEntity.orientation;
-            po.transform.rotation = new Quaternion((float)orientation.X,
-                (float)orientation.Y, (float)orientation.Z,
-                (float)orientation.W);
+            po.transform.rotation = new Quaternion((float) orientation.X,
+                (float) orientation.Y, (float) orientation.Z,
+                (float) orientation.W);
         }
 
         foreach (var character in _characterControllers)
@@ -93,6 +98,7 @@ public class PhysicsWorld : MonoBehaviour
         {
             _physicsSpace.Update();
         }
+
         PositionPhysicsObjects();
     }
 

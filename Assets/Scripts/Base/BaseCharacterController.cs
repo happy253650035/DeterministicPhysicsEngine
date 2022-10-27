@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BEPUphysics.BroadPhaseEntries;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
+using BEPUutilities;
 using UnityEngine;
 using CharacterController = BEPUphysics.Character.CharacterController;
 
@@ -13,14 +14,10 @@ public class BaseCharacterController : MonoBehaviour
     public float speed = 0.5f;
     public float gravity = 9.81f;
     public CharacterController mCharacterController;
-    public delegate void CharacterEnterDetectedMainThread(EntityCollidable sender, Collidable other,
-        CollidablePairHandler pair, BaseCharacterController character);
-    public delegate void CharacterExitDetectedMainThread(EntityCollidable sender, Collidable other,
-        CollidablePairHandler pair, BaseCharacterController character);
     public event ColliderListener.CollisionEnterDetected OnEnterCharacter;
-    public event CharacterEnterDetectedMainThread OnEnterCharacterMainThread;
+    public event ColliderListener.CollisionEnterDetectedMainThread OnEnterCharacterMainThread;
     public event ColliderListener.CollisionEnterDetected OnExitCharacter;
-    public event CharacterExitDetectedMainThread OnExitCharacterMainThread;
+    public event ColliderListener.CollisionExitDetectedMainThread OnExitCharacterMainThread;
     private readonly List<ColliderListener.CollisionInfo> _collisionEnterInfos = new();
     private readonly List<ColliderListener.CollisionInfo> _collisionExitInfos = new();
 
@@ -39,10 +36,22 @@ public class BaseCharacterController : MonoBehaviour
         mCharacterController.Body.Mass = Convert.ToDecimal(mass);
         mCharacterController.SpeedScale *= Convert.ToDecimal(speed);
         mCharacterController.Body.Gravity = new BEPUutilities.Vector3(0, -Convert.ToDecimal(gravity), 0);
+        mCharacterController.Body.CollisionInformation.GameObject = gameObject;
     }
     
     private void Start()
     {
+        var material = GetComponent<PhysicsMaterial>();
+        if (material)
+        {
+            mCharacterController.Body.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(material.staticFriction),
+                Convert.ToDecimal(material.kineticFriction), Convert.ToDecimal(material.bounciness));
+        }
+        else
+        {
+            mCharacterController.Body.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(PhysicsWorld.Instance.staticFriction),
+                Convert.ToDecimal(PhysicsWorld.Instance.kineticFriction), Convert.ToDecimal(PhysicsWorld.Instance.bounciness));
+        }
         Activate();
         mCharacterController.Body.CollisionInformation.Events.InitialCollisionDetected +=
             InitialCollisionDetected;
@@ -82,16 +91,23 @@ public class BaseCharacterController : MonoBehaviour
     {
         mCharacterController.Jump();
     }
+
+    public void Sprint()
+    {
+        var forward = transform.forward;
+        mCharacterController.Body.ApplyImpulse(mCharacterController.Body.position,
+            new BEPUutilities.Vector3(Convert.ToDecimal(forward.x), Convert.ToDecimal(forward.y), Convert.ToDecimal(forward.z)) * 30);
+    }
     
     private void Update()
     {
         foreach (var info in _collisionEnterInfos)
         {
-            OnEnterCharacterMainThread?.Invoke(info.Sender, info.Other, info.Pair, this);
+            OnEnterCharacterMainThread?.Invoke(info.Sender, info.Other, info.Pair);
         }
         foreach (var info in _collisionExitInfos)
         {
-            OnExitCharacterMainThread?.Invoke(info.Sender, info.Other, info.Pair, this);
+            OnExitCharacterMainThread?.Invoke(info.Sender, info.Other, info.Pair);
         }
         _collisionEnterInfos.Clear();
         _collisionExitInfos.Clear();

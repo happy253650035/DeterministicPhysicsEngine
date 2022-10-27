@@ -9,18 +9,11 @@ public class PhysicsObject : MonoBehaviour
     public bool isBullet;
     public bool useScale;
     public float mass = 1;
-    public float kineticFriction;
-    public float staticFriction;
-    public float bounciness;
     public Entity mEntity;
-    [HideInInspector]
-    public float mCenterX;
-    [HideInInspector]
-    public float mCenterY;
-    [HideInInspector]
-    public float mCenterZ;
+    [HideInInspector] public Vector3 center;
+
     public bool IsActive { get; private set; }
-    
+
     public void Activate()
     {
         if (IsActive) return;

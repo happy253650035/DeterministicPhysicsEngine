@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Utils
 {
@@ -6,7 +7,7 @@ namespace Utils
     {
         public float followSpeed = 10;
         public Transform follower;
-        private readonly Vector3 _offset = new Vector3(0, 3, -3);
+        public Vector3 offset = new Vector3(0, 3, -3);
 
         private void Start()
         {
@@ -16,7 +17,7 @@ namespace Utils
         private void LateUpdate()
         {
             if (follower == null) return;
-            transform.localPosition = Vector3.Lerp(transform.localPosition, follower.position + _offset, followSpeed * Time.deltaTime);
+            transform.localPosition = Vector3.Lerp(transform.localPosition, follower.position + offset, followSpeed * Time.deltaTime);
         }
     }
 }

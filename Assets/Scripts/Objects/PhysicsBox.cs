@@ -15,19 +15,13 @@ public class PhysicsBox : PhysicsObject
         {
             size = Vector3.Scale(box.size, transform.localScale);
         }
-        var center = box.center;
-        mCenterX = center.x;
-        mCenterY = center.y;
-        mCenterZ = center.z;
+        center = box.center;
 
         _mBox = isStatic
             ? new Box(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(size.x),
                 Convert.ToDecimal(size.y), Convert.ToDecimal(size.z))
             : new Box(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(size.x),
                 Convert.ToDecimal(size.y), Convert.ToDecimal(size.z), Convert.ToDecimal(mass));
-
-        _mBox.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(staticFriction),
-            Convert.ToDecimal(kineticFriction), Convert.ToDecimal(bounciness));
 
         var pos = transform.position + center;
         _mBox.position = new BEPUutilities.Vector3(Convert.ToDecimal(pos.x),
@@ -36,10 +30,22 @@ public class PhysicsBox : PhysicsObject
         _mBox.orientation = new BEPUutilities.Quaternion(Convert.ToDecimal(orientation.x),
             Convert.ToDecimal(orientation.y), Convert.ToDecimal(orientation.z), Convert.ToDecimal(orientation.w));
         mEntity = _mBox;
+        mEntity.CollisionInformation.GameObject = gameObject;
     }
     
     private void Start()
     {
+        var material = GetComponent<PhysicsMaterial>();
+        if (material)
+        {
+            _mBox.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(material.staticFriction),
+                Convert.ToDecimal(material.kineticFriction), Convert.ToDecimal(material.bounciness));
+        }
+        else
+        {
+            _mBox.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(PhysicsWorld.Instance.staticFriction),
+                Convert.ToDecimal(PhysicsWorld.Instance.kineticFriction), Convert.ToDecimal(PhysicsWorld.Instance.bounciness));
+        }
         Activate();
     }
 }

@@ -21,12 +21,12 @@ public class ColliderListener : MonoBehaviour
     public delegate void CollisionEnterDetected(EntityCollidable sender, Collidable other, CollidablePairHandler pair);
 
     public delegate void CollisionEnterDetectedMainThread(EntityCollidable sender, Collidable other,
-        CollidablePairHandler pair, PhysicsObject physicsObject);
+        CollidablePairHandler pair);
 
     public delegate void CollisionExitDetected(EntityCollidable sender, Collidable other, CollidablePairHandler pair);
 
     public delegate void CollisionExitDetectedMainThread(EntityCollidable sender, Collidable other,
-        CollidablePairHandler pair, PhysicsObject physicsObject);
+        CollidablePairHandler pair);
 
     public event CollisionEnterDetected OnEnterCollision;
     public event CollisionEnterDetectedMainThread OnEnterCollisionMainThread;
@@ -61,11 +61,11 @@ public class ColliderListener : MonoBehaviour
     {
         foreach (var info in _collisionEnterInfos)
         {
-            OnEnterCollisionMainThread?.Invoke(info.Sender, info.Other, info.Pair, _physicsObject);
+            OnEnterCollisionMainThread?.Invoke(info.Sender, info.Other, info.Pair);
         }
         foreach (var info in _collisionExitInfos)
         {
-            OnExitCollisionMainThread?.Invoke(info.Sender, info.Other, info.Pair, _physicsObject);
+            OnExitCollisionMainThread?.Invoke(info.Sender, info.Other, info.Pair);
         }
         _collisionEnterInfos.Clear();
         _collisionExitInfos.Clear();

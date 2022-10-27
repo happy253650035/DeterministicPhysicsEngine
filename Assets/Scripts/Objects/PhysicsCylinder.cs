@@ -9,18 +9,12 @@ public class PhysicsCylinder : PhysicsObject
     private void Awake()
     {
         var cylinder = GetComponent<CylinderCollider>();
-        var center = cylinder.center;
-        mCenterX = center.x;
-        mCenterY = center.y;
-        mCenterZ = center.z;
+        center = cylinder.center;
 
         _cylinder = isStatic
             ? new Cylinder(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(cylinder.height), Convert.ToDecimal(cylinder.radius))
             : new Cylinder(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(cylinder.height), Convert.ToDecimal(cylinder.radius),
                 Convert.ToDecimal(mass));
-
-        _cylinder.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(staticFriction),
-            Convert.ToDecimal(kineticFriction), Convert.ToDecimal(bounciness));
 
         var pos = transform.position + center;
         _cylinder.position = new BEPUutilities.Vector3(Convert.ToDecimal(pos.x),
@@ -29,10 +23,22 @@ public class PhysicsCylinder : PhysicsObject
         _cylinder.orientation = new BEPUutilities.Quaternion(Convert.ToDecimal(orientation.x),
             Convert.ToDecimal(orientation.y), Convert.ToDecimal(orientation.z), Convert.ToDecimal(orientation.w));
         mEntity = _cylinder;
+        mEntity.CollisionInformation.GameObject = gameObject;
     }
     
     private void Start()
     {
+        var material = GetComponent<PhysicsMaterial>();
+        if (material)
+        {
+            _cylinder.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(material.staticFriction),
+                Convert.ToDecimal(material.kineticFriction), Convert.ToDecimal(material.bounciness));
+        }
+        else
+        {
+            _cylinder.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(PhysicsWorld.Instance.staticFriction),
+                Convert.ToDecimal(PhysicsWorld.Instance.kineticFriction), Convert.ToDecimal(PhysicsWorld.Instance.bounciness));
+        }
         Activate();
     }
 }
