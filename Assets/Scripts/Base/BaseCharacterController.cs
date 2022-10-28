@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using BEPUphysics.BroadPhaseEntries;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
-using BEPUutilities;
 using UnityEngine;
 using CharacterController = BEPUphysics.Character.CharacterController;
 
 [RequireComponent(typeof(CapsuleCollider))]
-public class BaseCharacterController : MonoBehaviour
+public abstract class BaseCharacterController : MonoBehaviour
 {
     public float mass = 2;
     public float speed = 0.5f;
@@ -20,8 +19,17 @@ public class BaseCharacterController : MonoBehaviour
     public event ColliderListener.CollisionExitDetectedMainThread OnExitCharacterMainThread;
     private readonly List<ColliderListener.CollisionInfo> _collisionEnterInfos = new();
     private readonly List<ColliderListener.CollisionInfo> _collisionExitInfos = new();
+    protected abstract void OnAwake();
+    protected abstract void OnStart();
+    protected abstract void Enable();
+    protected abstract void OnUpdate();
 
     public bool IsActive { get; private set; }
+
+    private void OnEnable()
+    {
+        Enable();
+    }
 
     private void Awake()
     {
@@ -37,6 +45,7 @@ public class BaseCharacterController : MonoBehaviour
         mCharacterController.SpeedScale *= Convert.ToDecimal(speed);
         mCharacterController.Body.Gravity = new BEPUutilities.Vector3(0, -Convert.ToDecimal(gravity), 0);
         mCharacterController.Body.CollisionInformation.GameObject = gameObject;
+        OnAwake();
     }
     
     private void Start()
@@ -57,6 +66,7 @@ public class BaseCharacterController : MonoBehaviour
             InitialCollisionDetected;
         mCharacterController.Body.CollisionInformation.Events.CollisionEnded +=
             CollisionEnded;
+        OnStart();
     }
     
     private void InitialCollisionDetected(EntityCollidable sender, Collidable other, CollidablePairHandler pair)
@@ -111,5 +121,6 @@ public class BaseCharacterController : MonoBehaviour
         }
         _collisionEnterInfos.Clear();
         _collisionExitInfos.Clear();
+        OnUpdate();
     }
 }

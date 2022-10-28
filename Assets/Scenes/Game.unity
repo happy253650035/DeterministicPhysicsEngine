@@ -291,12 +291,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!1 &19586313
 GameObject:
   m_ObjectHideFlags: 0
@@ -347,12 +342,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &19586316
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1436,12 +1426,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!1 &199630759
 GameObject:
   m_ObjectHideFlags: 0
@@ -1903,12 +1888,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &218622496
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2393,12 +2373,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &358540179
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2459,12 +2434,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!4 &378139568
 Transform:
   m_ObjectHideFlags: 0
@@ -2534,12 +2504,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &380032048
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3052,12 +3017,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &457969754
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3253,12 +3213,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &498670226
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3375,12 +3330,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!1001 &536303275
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3500,12 +3450,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &544311706
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3762,12 +3707,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &585353609
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4375,12 +4315,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &709945368
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4523,12 +4458,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &740131135
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4690,12 +4620,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &755608703
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4779,12 +4704,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!1001 &781231656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5135,12 +5055,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!1 &801009754
 GameObject:
   m_ObjectHideFlags: 0
@@ -5181,11 +5096,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 801009754}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccffa812034faa644ad70b8863b53c80, type: 3}
+  m_Script: {fileID: 11500000, guid: 81cc75873c8679d4782fb9e49a657c3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mass: 2
   speed: 0.5
+  gravity: 9.81
 --- !u!136 &801009757
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -6022,12 +5938,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!4 &949275770 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8718778828885884488, guid: e5f4daf24146ee040b5a2d7a73b30aa0,
@@ -6426,6 +6337,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Asynchronous: 0
+  gravity: 9.81
+  kineticFriction: 0
+  staticFriction: 0
+  bounciness: 0
 --- !u!114 &961739755
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6440,6 +6355,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followSpeed: 10
   follower: {fileID: 801009760}
+  offset: {x: 0, y: 3, z: -3}
 --- !u!1 &962359302
 GameObject:
   m_ObjectHideFlags: 0
@@ -6557,12 +6473,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &994363347
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6869,12 +6780,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!1 &1041132226
 GameObject:
   m_ObjectHideFlags: 0
@@ -8406,12 +8312,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 0
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &1228935388
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8671,12 +8572,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &1239959878
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9135,12 +9031,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &1312662863
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9724,12 +9615,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &1361048089
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9890,12 +9776,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &1385189505
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10704,12 +10585,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &1495368469
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10779,12 +10655,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &1506201988
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11339,12 +11210,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 0
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &1604315046
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11408,12 +11274,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &1612472802
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12684,12 +12545,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1828630427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13304,12 +13160,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &1892265130
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14503,12 +14354,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &2072566228
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14573,12 +14419,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!65 &2074373932
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14760,12 +14601,7 @@ MonoBehaviour:
   isBullet: 0
   useScale: 1
   mass: 1
-  kineticFriction: 0
-  staticFriction: 0
-  bounciness: 0
-  mCenterX: 0
-  mCenterY: 0
-  mCenterZ: 0
+  center: {x: 0, y: 0, z: 0}
 --- !u!4 &2087456489 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8718778828885884488, guid: e5f4daf24146ee040b5a2d7a73b30aa0,

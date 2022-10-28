@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class RotateComponent : MonoBehaviour
+public class Rotate : MonoBehaviour
 {
     public Vector3 rotateVelocity;
 

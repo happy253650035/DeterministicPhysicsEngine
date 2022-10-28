@@ -3,7 +3,7 @@ using BEPUphysics.Entities;
 using BEPUphysics.PositionUpdating;
 using UnityEngine;
 
-public class PhysicsObject : MonoBehaviour
+public abstract class PhysicsObject : MonoBehaviour
 {
     public bool isStatic;
     public bool isBullet;
