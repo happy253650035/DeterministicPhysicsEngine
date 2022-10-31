@@ -28,6 +28,7 @@ public class PhysicsWorld : MonoBehaviour
         _physicsSpace = new Space();
         _physicsSpace.ForceUpdater.gravity = new BEPUutilities.Vector3(0, -Convert.ToDecimal(gravity), 0);
         _physicsSpace.TimeStepSettings.TimeStepDuration = 0.02M;
+        MapComManager.Instance.Init();
         if (!Asynchronous) return;
         _physicThread = new Thread(Run);
         _physicThread.Start();

@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using BEPUphysics.BroadPhaseEntries;
+using BEPUphysics.BroadPhaseEntries.MobileCollidables;
+using BEPUphysics.NarrowPhaseSystems.Pairs;
 
 public class PlayerController : BaseCharacterController
 {
@@ -11,7 +11,18 @@ public class PlayerController : BaseCharacterController
 
     protected override void OnStart()
     {
-        
+        OnEnterCharacterMainThread += EnterCharacterMainThread;
+        OnExitCharacterMainThread += ExitCharacterMainThread;
+    }
+
+    private void EnterCharacterMainThread(EntityCollidable sender, Collidable other, CollidablePairHandler pair)
+    {
+        MapComManager.Instance.HandleEnterMapCom(sender, other, pair, this);
+    }
+
+    private void ExitCharacterMainThread(EntityCollidable sender, Collidable other, CollidablePairHandler pair)
+    {
+        MapComManager.Instance.HandleExitMapCom(sender, other, pair, this);
     }
 
     protected override void Enable()
