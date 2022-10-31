@@ -1,5 +1,3 @@
-using BEPUutilities;
-using FixMath.NET;
 using UnityEngine;
 
 public class CharacterInputController : MonoBehaviour

@@ -1,5 +1,7 @@
 using System;
+using Managers;
 using UnityEngine;
+using Utils;
 
 public class RotateCom : MonoBehaviour
 {
@@ -7,7 +9,12 @@ public class RotateCom : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<PhysicsObject>().mEntity.angularVelocity = new BEPUutilities.Vector3(Convert.ToDecimal(rotateVelocity.x),
-            Convert.ToDecimal(rotateVelocity.y), Convert.ToDecimal(rotateVelocity.z));
+        var command = new Command
+        {
+            commandID = (int) CommandID.RotateCommand,
+            objectId = GetComponent<PhysicsObject>().id,
+            vector = rotateVelocity
+        };
+        CommandManager.Instance.SendCommand(command);
     }
 }

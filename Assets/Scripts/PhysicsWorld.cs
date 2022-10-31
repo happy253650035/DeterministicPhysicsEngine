@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Managers;
 using UnityEngine;
+using Utils;
 using Space = BEPUphysics.Space;
 
 public class PhysicsWorld : MonoBehaviour
@@ -16,8 +18,6 @@ public class PhysicsWorld : MonoBehaviour
     private bool _useThread;
     private Thread _physicThread;
     private Space _physicsSpace;
-    private readonly List<PhysicsObject> _physicsObjects = new();
-    private readonly List<BaseCharacterController> _characterControllers = new();
 
     private void Awake()
     {
@@ -38,6 +38,7 @@ public class PhysicsWorld : MonoBehaviour
     {
         while (true)
         {
+            CommandManager.Instance.Execute();
             _physicsSpace.Update();
             Thread.Sleep(20);
         }
@@ -46,61 +47,38 @@ public class PhysicsWorld : MonoBehaviour
 
     public void AddPhysicsObject(PhysicsObject po)
     {
-        Instance._physicsSpace.Add(po.mEntity);
-        _physicsObjects.Add(po);
+        _physicsSpace.Add(po.mEntity);
+        PhysicsObjectManager.Instance.Add(po);
     }
 
     public void RemovePhysicsObject(PhysicsObject po)
     {
-        Instance._physicsSpace.Remove(po.mEntity);
-        _physicsObjects.Remove(po);
+        _physicsSpace.Remove(po.mEntity);
+        PhysicsObjectManager.Instance.Remove(po);
     }
 
     public void AddPhysicsCharacterController(BaseCharacterController controller)
     {
-        Instance._physicsSpace.Add(controller.mCharacterController);
-        _characterControllers.Add(controller);
+        _physicsSpace.Add(controller.mCharacterController);
+        PlayerManager.Instance.Add(controller);
     }
 
     public void RemovePhysicsCharacterController(BaseCharacterController controller)
     {
-        Instance._physicsSpace.Remove(controller.mCharacterController);
-        _characterControllers.Remove(controller);
-    }
-
-    public void PositionPhysicsObjects()
-    {
-        foreach (var po in _physicsObjects)
-        {
-            var worldPos = po.mEntity.position;
-            var x = (float) worldPos.X;
-            var y = (float) worldPos.Y;
-            var z = (float) worldPos.Z;
-            po.transform.position = new Vector3(x, y, z) - po.center;
-            var orientation = po.mEntity.orientation;
-            po.transform.rotation = new Quaternion((float) orientation.X,
-                (float) orientation.Y, (float) orientation.Z,
-                (float) orientation.W);
-        }
-
-        foreach (var character in _characterControllers)
-        {
-            var worldPos = character.mCharacterController.Body.position;
-            var x = (float) worldPos.X;
-            var y = (float) worldPos.Y;
-            var z = (float) worldPos.Z;
-            character.transform.position = new Vector3(x, y, z);
-        }
+        _physicsSpace.Remove(controller.mCharacterController);
+        PlayerManager.Instance.Remove(controller);
     }
 
     private void Update()
     {
         if (!Asynchronous)
         {
+            CommandManager.Instance.Execute();
             _physicsSpace.Update();
         }
-
-        PositionPhysicsObjects();
+        
+        PhysicsObjectManager.Instance.Update();
+        PlayerManager.Instance.Update();
     }
 
     private void OnDestroy()

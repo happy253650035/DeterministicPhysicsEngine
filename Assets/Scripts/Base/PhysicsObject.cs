@@ -2,9 +2,11 @@ using System;
 using BEPUphysics.Entities;
 using BEPUphysics.PositionUpdating;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public abstract class PhysicsObject : MonoBehaviour
 {
+    public int id;
     public bool isStatic;
     public bool isBullet;
     public bool useScale;

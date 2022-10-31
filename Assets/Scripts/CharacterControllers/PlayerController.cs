@@ -1,12 +1,15 @@
 using BEPUphysics.BroadPhaseEntries;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
+using Managers;
+using UnityEngine;
 
 public class PlayerController : BaseCharacterController
 {
+    public Vector3 survivePoint;
     protected override void OnAwake()
     {
-        
+        PlayerManager.Instance.myPlayer = this;
     }
 
     protected override void OnStart()
