@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class SaveCom : MonoBehaviour
+namespace MapComponents
 {
-    public Transform survivePoint;
+    public class SaveCom : MonoBehaviour
+    {
+        public Transform survivePoint;
+    }
 }

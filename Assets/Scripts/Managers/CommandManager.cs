@@ -47,7 +47,41 @@ namespace Managers
                                 Convert.ToDecimal(command.vector.y), Convert.ToDecimal(command.vector.z)));
                         break;
                     case CommandID.TumbleCommand:
+                        PlayerManager.Instance.myPlayer.mCharacterController.Body.ApplyImpulse(
+                            PlayerManager.Instance.myPlayer.mCharacterController.Body.position,
+                            new BEPUutilities.Vector3(Convert.ToDecimal(command.vector.x),
+                                Convert.ToDecimal(command.vector.y), Convert.ToDecimal(command.vector.z)));
                         PlayerManager.Instance.myPlayer.mCharacterController.StanceManager.DesiredStance = Stance.Crouching;
+                        break;
+                    case CommandID.ConveyorCommand:
+                        if (command.enterOrExit == 0)
+                        {
+                            
+                        }
+                        break;
+                    case CommandID.MarshCommand:
+                        if (command.enterOrExit == 0)
+                        {
+                            
+                        }
+                        break;
+                    case CommandID.IceCommand:
+                        if (command.enterOrExit == 0)
+                        {
+                            
+                        }
+                        break;
+                    case CommandID.MoveCommand:
+                        break;
+                    case CommandID.SeeSawCommand:
+                        break;
+                    case CommandID.AutoDisappearCommand:
+                        break;
+                    case CommandID.TriggerCommand:
+                        break;
+                    case CommandID.ChangeColorCommand:
+                        break;
+                    case CommandID.FanCommand:
                         break;
                 }
             }

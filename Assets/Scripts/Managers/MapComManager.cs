@@ -2,6 +2,7 @@
 using BEPUphysics.BroadPhaseEntries;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
+using MapComHandlers;
 
 namespace Managers
 {

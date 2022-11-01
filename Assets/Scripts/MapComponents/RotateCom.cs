@@ -1,20 +1,27 @@
-using System;
 using Managers;
 using UnityEngine;
 using Utils;
 
-public class RotateCom : MonoBehaviour
+namespace MapComponents
 {
-    public Vector3 rotateVelocity;
-
-    private void Start()
+    public class RotateCom : MonoBehaviour
     {
-        var command = new Command
+        public bool loop;
+        public float duration;
+        public Vector3 rotateVelocity;
+        public AnimationCurve curve;
+
+        private void Start()
         {
-            commandID = (int) CommandID.RotateCommand,
-            objectId = GetComponent<PhysicsObject>().id,
-            vector = rotateVelocity
-        };
-        CommandManager.Instance.SendCommand(command);
+            var command = new Command
+            {
+                commandID = (int) CommandID.RotateCommand,
+                objectId = GetComponent<PhysicsObject>().id,
+                boolValue1 = loop,
+                floatValue1 = duration,
+                vector = rotateVelocity
+            };
+            CommandManager.Instance.SendCommand(command);
+        }
     }
 }

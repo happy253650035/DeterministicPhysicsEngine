@@ -1,36 +1,37 @@
-﻿using System;
-using BEPUphysics.BroadPhaseEntries;
+﻿using BEPUphysics.BroadPhaseEntries;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
-using BEPUphysics.Character;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
 using Managers;
-using UnityEngine;
+using MapComponents;
 using Utils;
 
-public class TumbleComHandler : BaseMapComHandler
+namespace MapComHandlers
 {
-    public override void HandleEnterCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
+    public class TumbleComHandler : BaseMapComHandler
     {
-        var com = other.GameObject.GetComponent<TumbleCom>();
-        if (!com) return;
-        if (characterController is not PlayerController playerController) return;
-        var direction = playerController.transform.position - com.transform.position;
-        direction.y = 0;
-        direction = direction.normalized * com.force;
-        var command = new Command
+        public override void HandleEnterCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
         {
-            commandID = (int) CommandID.TumbleCommand,
-            vector = direction
-        };
-        CommandManager.Instance.SendCommand(command);
-    }
+            var com = other.GameObject.GetComponent<TumbleCom>();
+            if (!com) return;
+            if (characterController is not PlayerController playerController) return;
+            var direction = playerController.transform.position - com.transform.position;
+            direction.y = 0;
+            direction = direction.normalized * com.force;
+            var command = new Command
+            {
+                commandID = (int) CommandID.TumbleCommand,
+                vector = direction
+            };
+            CommandManager.Instance.SendCommand(command);
+        }
 
-    public override void HandleExitCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
-    {
-        var com = other.GameObject.GetComponent<TumbleCom>();
-        if (com)
+        public override void HandleExitCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
         {
+            var com = other.GameObject.GetComponent<TumbleCom>();
+            if (com)
+            {
             
+            }
         }
     }
 }

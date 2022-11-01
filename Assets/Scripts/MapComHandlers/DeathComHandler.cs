@@ -2,28 +2,32 @@
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
 using Managers;
+using MapComponents;
 using Utils;
 
-public class DeathComHandler : BaseMapComHandler
+namespace MapComHandlers
 {
-    public override void HandleEnterCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
+    public class DeathComHandler : BaseMapComHandler
     {
-        var com = other.GameObject.GetComponent<DeathCom>();
-        if (!com) return;
-        if (characterController is not PlayerController playerController) return;
-        var command = new Command
+        public override void HandleEnterCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
         {
-            commandID = (int) CommandID.DeadCommand
-        };
-        CommandManager.Instance.SendCommand(command);
-    }
+            var com = other.GameObject.GetComponent<DeathCom>();
+            if (!com) return;
+            if (characterController is not PlayerController playerController) return;
+            var command = new Command
+            {
+                commandID = (int) CommandID.DeadCommand
+            };
+            CommandManager.Instance.SendCommand(command);
+        }
 
-    public override void HandleExitCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
-    {
-        var com = other.GameObject.GetComponent<DeathCom>();
-        if (com)
+        public override void HandleExitCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
         {
+            var com = other.GameObject.GetComponent<DeathCom>();
+            if (com)
+            {
             
+            }
         }
     }
 }

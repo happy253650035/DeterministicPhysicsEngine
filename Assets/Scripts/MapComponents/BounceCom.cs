@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class BounceCom : MonoBehaviour
+namespace MapComponents
 {
-    public enum BounceType
+    public class BounceCom : MonoBehaviour
     {
-        Ground = 1,
-        Wall = 2,
-        Cylinder = 3,
-    }
+        public enum BounceType
+        {
+            Ground = 1,
+            Wall = 2,
+            Cylinder = 3,
+        }
 
-    public BounceType bounceType;
-    public float force;
+        public BounceType bounceType;
+        public float force;
+    }
 }

@@ -10,11 +10,23 @@ namespace Utils
         BounceCommand = 4,
         TumbleCommand = 5,
         AccelerateCommand = 6,
+        ConveyorCommand = 7,
+        MarshCommand = 8,
+        IceCommand = 9,
+        MoveCommand = 10,
+        SeeSawCommand = 11,
+        AutoDisappearCommand = 12,
+        TriggerCommand = 13,
+        ChangeColorCommand = 14,
+        FanCommand = 15,
     }
     public struct Command
     {
         public int commandID;
         public int objectId;
+        public int enterOrExit; //0:enter, 1:exit
+        public bool boolValue1;
+        public float floatValue1;
         public Vector3 vector;
     }
 }

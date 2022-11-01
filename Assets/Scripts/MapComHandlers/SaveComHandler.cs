@@ -2,29 +2,33 @@
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
 using Managers;
+using MapComponents;
 using Utils;
 
-public class SaveComHandler : BaseMapComHandler
+namespace MapComHandlers
 {
-    public override void HandleEnterCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
+    public class SaveComHandler : BaseMapComHandler
     {
-        var com = other.GameObject.GetComponent<SaveCom>();
-        if (!com) return;
-        if (characterController is not PlayerController playerController) return;
-        var command = new Command
+        public override void HandleEnterCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
         {
-            commandID = (int) CommandID.SaveCommand,
-            vector = com.survivePoint.position
-        };
-        CommandManager.Instance.SendCommand(command);
-    }
+            var com = other.GameObject.GetComponent<SaveCom>();
+            if (!com) return;
+            if (characterController is not PlayerController playerController) return;
+            var command = new Command
+            {
+                commandID = (int) CommandID.SaveCommand,
+                vector = com.survivePoint.position
+            };
+            CommandManager.Instance.SendCommand(command);
+        }
 
-    public override void HandleExitCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
-    {
-        var com = other.GameObject.GetComponent<SaveCom>();
-        if (com)
+        public override void HandleExitCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
         {
+            var com = other.GameObject.GetComponent<SaveCom>();
+            if (com)
+            {
             
+            }
         }
     }
 }

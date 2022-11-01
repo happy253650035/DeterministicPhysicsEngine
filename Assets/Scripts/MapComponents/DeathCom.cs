@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class DeathCom : MonoBehaviour
+namespace MapComponents
 {
+    public class DeathCom : MonoBehaviour
+    {
     
+    }
 }

@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public class TumbleCom : MonoBehaviour
+namespace MapComponents
 {
-    public float force;
+    public class TumbleCom : MonoBehaviour
+    {
+        public float force;
+    }
 }
