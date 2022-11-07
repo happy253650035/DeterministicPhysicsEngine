@@ -1,38 +1,39 @@
-using System;
 using BEPUphysics.Entities;
 using BEPUphysics.PositionUpdating;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public abstract class PhysicsObject : MonoBehaviour
+namespace Base
 {
-    public int id;
-    public bool isStatic;
-    public bool isBullet;
-    public bool useScale;
-    public float mass = 1;
-    public Entity mEntity;
-    [HideInInspector] public Vector3 center;
-
-    public bool IsActive { get; private set; }
-
-    public void Activate()
+    public abstract class PhysicsObject : MonoBehaviour
     {
-        if (IsActive) return;
-        IsActive = true;
-        if (isBullet) mEntity.PositionUpdateMode = PositionUpdateMode.Continuous;
-        PhysicsWorld.Instance.AddPhysicsObject(this);
-    }
+        public int id;
+        public bool isStatic;
+        public bool isBullet;
+        public bool useScale;
+        public float mass = 1;
+        public Entity mEntity;
+        [HideInInspector] public Vector3 center;
 
-    public void Deactivate()
-    {
-        if (!IsActive) return;
-        IsActive = false;
-        PhysicsWorld.Instance.RemovePhysicsObject(this);
-    }
+        public bool IsActive { get; private set; }
 
-    public void ApplyImpulse(BEPUutilities.Vector3 location, BEPUutilities.Vector3 impulse)
-    {
-        mEntity.ApplyImpulse(location, impulse);
+        public void Activate()
+        {
+            if (IsActive) return;
+            IsActive = true;
+            if (isBullet) mEntity.PositionUpdateMode = PositionUpdateMode.Continuous;
+            PhysicsWorld.Instance.AddPhysicsObject(this);
+        }
+
+        public void Deactivate()
+        {
+            if (!IsActive) return;
+            IsActive = false;
+            PhysicsWorld.Instance.RemovePhysicsObject(this);
+        }
+
+        public void ApplyImpulse(BEPUutilities.Vector3 location, BEPUutilities.Vector3 impulse)
+        {
+            mEntity.ApplyImpulse(location, impulse);
+        }
     }
 }
