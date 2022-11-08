@@ -19,6 +19,10 @@ namespace Utils
         TriggerCommand = 13,
         ChangeColorCommand = 14,
         FanCommand = 15,
+        JumpCommand = 16,
+        SprintCommand = 17,
+        TumbleBuffCommand = 18,
+        PlayerMoveCommand = 19,
     }
     public struct Command
     {
@@ -26,7 +30,9 @@ namespace Utils
         public int objectId;
         public int enterOrExit; //0:enter, 1:exit
         public bool boolValue1;
+        public int intValue1;
         public float floatValue1;
-        public Vector3 vector;
+        public Vector3 vector3;
+        public Vector2 vector2;
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Base;
+using BEPUphysics.Constraints;
 using Managers;
 using UnityEngine;
 using Utils;
@@ -17,11 +18,14 @@ public class PhysicsWorld : MonoBehaviour
     public static PhysicsWorld Instance;
 
     private bool _useThread;
+    private long _tick;
     private Thread _physicThread;
     private Space _physicsSpace;
+    public float TimeSinceStart => _tick * 0.033f;
 
     private void Awake()
     {
+        _tick = 0;
         Application.targetFrameRate = 30;
         if (Instance != null) return;
         Instance = this;
@@ -39,8 +43,7 @@ public class PhysicsWorld : MonoBehaviour
     {
         while (true)
         {
-            CommandManager.Instance.Execute();
-            _physicsSpace.Update();
+            Tick();
             Thread.Sleep(20);
         }
         // ReSharper disable once FunctionNeverReturns
@@ -58,6 +61,16 @@ public class PhysicsWorld : MonoBehaviour
         PhysicsObjectManager.Instance.Remove(po);
     }
 
+    public void AddJoint(SolverUpdateable solver)
+    {
+        _physicsSpace.Add(solver);
+    }
+
+    public void RemoveJoint(SolverUpdateable solver)
+    {
+        _physicsSpace.Remove(solver);
+    }
+
     public void AddPhysicsCharacterController(BaseCharacterController controller)
     {
         _physicsSpace.Add(controller.mCharacterController);
@@ -72,14 +85,17 @@ public class PhysicsWorld : MonoBehaviour
 
     private void Update()
     {
-        if (!Asynchronous)
-        {
-            CommandManager.Instance.Execute();
-            _physicsSpace.Update();
-        }
-        
+        if (!Asynchronous) Tick();
         PhysicsObjectManager.Instance.Update();
         PlayerManager.Instance.Update();
+    }
+
+    private void Tick()
+    {
+        CommandManager.Instance.Execute();
+        PlayerManager.Instance.Tick();
+        _physicsSpace.Update();
+        _tick++;
     }
 
     private void OnDestroy()

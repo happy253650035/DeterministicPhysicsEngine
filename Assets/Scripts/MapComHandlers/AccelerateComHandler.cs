@@ -21,7 +21,7 @@ namespace MapComHandlers
             var command = new Command
             {
                 commandID = (int) CommandID.AccelerateCommand,
-                vector = direction
+                vector3 = direction
             };
             CommandManager.Instance.SendCommand(command);
         }

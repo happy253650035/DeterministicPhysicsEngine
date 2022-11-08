@@ -1,4 +1,5 @@
 using Base;
+using Managers;
 using UnityEngine;
 
 namespace Utils
@@ -7,6 +8,7 @@ namespace Utils
     {
         private BaseCharacterController _character;
         private Animator _animator;
+        private Vector2 _preTotalMovement = Vector2.zero;
         private void Start()
         {
             _character = GetComponent<BaseCharacterController>();
@@ -20,28 +22,28 @@ namespace Utils
         {
             if (_character == null) return;
             if (!_character.IsActive) return;
-            var totalMovement = BEPUutilities.Vector2.Zero;
+            var totalMovement = Vector2.zero;
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                totalMovement += new BEPUutilities.Vector2(0, -1);
+                totalMovement = Vector2.down;
             }
 
             if (Input.GetKey(KeyCode.DownArrow))
             {
-                totalMovement += new BEPUutilities.Vector2(0, 1);
+                totalMovement = Vector2.up;
             }
 
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                totalMovement += new BEPUutilities.Vector2(-1, 0);
+                totalMovement = Vector2.left;
             }
 
             if (Input.GetKey(KeyCode.RightArrow))
             {
-                totalMovement += new BEPUutilities.Vector2(1, 0);
+                totalMovement = Vector2.right;
             }
 
-            if (totalMovement.Length() < 1)
+            if (totalMovement.magnitude < 1)
             {
                 if (_animator)
                 {
@@ -60,7 +62,7 @@ namespace Utils
                     _animator.SetBool("jump1", false);
                     _animator.SetBool("jump2", false);
                 }
-                _character.transform.forward = new UnityEngine.Vector3((float) totalMovement.X, 0, (float) -totalMovement.Y);
+                _character.transform.forward = new Vector3(totalMovement.x, 0, -totalMovement.y);
             }
 
             if (Input.GetKey(KeyCode.Space))
@@ -72,15 +74,25 @@ namespace Utils
                     _animator.SetBool("walk", false);
                     _animator.SetBool("idle", false);
                 }
-                _character.Jump();
+                _character.ExecuteSkill(SkillName.Jump);
             }
 
             if (Input.GetKey(KeyCode.J))
             {
-                _character.Sprint();
+                _character.ExecuteSkill(SkillName.Sprint);
             }
 
-            _character.mCharacterController.HorizontalMotionConstraint.MovementDirection = totalMovement;
+            if (_preTotalMovement != totalMovement)
+            {
+                var command = new Command
+                {
+                    commandID = (int) CommandID.PlayerMoveCommand,
+                    vector2 = totalMovement
+                };
+                CommandManager.Instance.SendCommand(command);
+            }
+
+            _preTotalMovement = totalMovement;
         }
     }
 }

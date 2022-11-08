@@ -3,6 +3,7 @@ using BEPUphysics.BroadPhaseEntries;
 using BEPUphysics.BroadPhaseEntries.MobileCollidables;
 using BEPUphysics.NarrowPhaseSystems.Pairs;
 using Managers;
+using Skills;
 using UnityEngine;
 
 namespace CharacterControllers
@@ -20,6 +21,10 @@ namespace CharacterControllers
         {
             OnEnterCharacterMainThread += EnterCharacterMainThread;
             OnExitCharacterMainThread += ExitCharacterMainThread;
+            AddSkill(new JumpSkill());
+            AddSkill(new SprintSkill());
+            AddSkill(new HammerSkill());
+            AddSkill(new BombSkill());
         }
 
         private void EnterCharacterMainThread(EntityCollidable sender, Collidable other, CollidablePairHandler pair)
@@ -40,6 +45,11 @@ namespace CharacterControllers
         protected override void OnUpdate()
         {
         
+        }
+
+        protected override void OnTick()
+        {
+            
         }
     }
 }

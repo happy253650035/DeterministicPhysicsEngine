@@ -23,5 +23,10 @@ namespace CharacterControllers
         {
         
         }
+
+        protected override void OnTick()
+        {
+            
+        }
     }
 }

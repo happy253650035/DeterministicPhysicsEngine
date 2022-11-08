@@ -37,5 +37,13 @@ namespace Managers
                 character.transform.position = new Vector3(x, y, z);
             }
         }
+
+        public void Tick()
+        {
+            foreach (var character in _characterControllers)
+            {
+                character.Tick();
+            }
+        }
     }
 }

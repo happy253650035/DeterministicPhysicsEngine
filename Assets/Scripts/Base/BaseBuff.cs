@@ -4,15 +4,18 @@ namespace Base
 {
     public abstract class BaseBuff
     {
-        public enum BuffType
+        public enum BuffState
         {
             Active,
             DeActive,
         }
 
-        public BuffType buffType;
-        public BuffName name;
+        public int id;
+        public BuffState state;
+        public BaseCharacterController characterController;
 
-        public abstract void Update();
+        public abstract void Start();
+        public abstract void End();
+        public abstract void Tick();
     }
 }

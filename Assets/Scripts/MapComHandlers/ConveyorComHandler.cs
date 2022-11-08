@@ -14,7 +14,7 @@ namespace MapComHandlers
         public override void HandleEnterCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair,
             BaseCharacterController characterController)
         {
-            var com = other.GameObject.GetComponent<AccelerateCom>();
+            var com = other.GameObject.GetComponent<ConveyorCom>();
             if (!com) return;
             if (characterController is not PlayerController) return;
             var direction = com.direction;
@@ -23,7 +23,7 @@ namespace MapComHandlers
             {
                 commandID = (int) CommandID.ConveyorCommand,
                 enterOrExit = 0,
-                vector = direction
+                vector3 = direction
             };
             CommandManager.Instance.SendCommand(command);
         }

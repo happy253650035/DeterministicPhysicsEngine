@@ -21,14 +21,17 @@ namespace Base
         public event ColliderListener.CollisionEnterDetectedMainThread OnEnterCharacterMainThread;
         public event ColliderListener.CollisionEnterDetected OnExitCharacter;
         public event ColliderListener.CollisionExitDetectedMainThread OnExitCharacterMainThread;
+        private int _buffIndex;
         private readonly List<ColliderListener.CollisionInfo> _collisionEnterInfos = new();
         private readonly List<ColliderListener.CollisionInfo> _collisionExitInfos = new();
         private readonly Dictionary<SkillName, BaseSkill> _skillDic = new();
-        private readonly Dictionary<BuffName, BaseBuff> _buffDic = new();
+        private readonly Dictionary<int, BaseBuff> _buffDic = new();
+        private readonly List<BaseBuff> _deActiveBuffList = new();
         protected abstract void OnAwake();
         protected abstract void OnStart();
         protected abstract void Enable();
         protected abstract void OnUpdate();
+        protected abstract void OnTick();
 
         public bool IsActive { get; private set; }
 
@@ -39,6 +42,7 @@ namespace Base
 
         private void Awake()
         {
+            _buffIndex = 0;
             var capsule = GetComponent<CapsuleCollider>();
             mCharacterController = new CharacterController();
             var pos = transform.position;
@@ -48,7 +52,7 @@ namespace Base
             mCharacterController.Body.Height = Convert.ToDecimal(capsule.height);
             mCharacterController.Body.Radius = Convert.ToDecimal(capsule.radius);
             mCharacterController.Body.Mass = Convert.ToDecimal(mass);
-            mCharacterController.SpeedScale *= Convert.ToDecimal(speed);
+            mCharacterController.SpeedScale = Convert.ToDecimal(speed);
             mCharacterController.Body.Gravity = new BEPUutilities.Vector3(0, -Convert.ToDecimal(gravity), 0);
             mCharacterController.Body.CollisionInformation.GameObject = gameObject;
             OnAwake();
@@ -91,6 +95,7 @@ namespace Base
 
         public void AddSkill(BaseSkill skill)
         {
+            skill.characterController = this;
             if (!_skillDic.ContainsKey(skill.name))
             {
                 _skillDic.Add(skill.name, skill);
@@ -102,45 +107,53 @@ namespace Base
             _skillDic.Remove(skill.name);
         }
 
-        public void AddBuff(BaseBuff buff)
+        public int AddBuff(BaseBuff buff)
         {
-            if (!_buffDic.ContainsKey(buff.name))
-            {
-                _buffDic.Add(buff.name, buff);
-            }
+            buff.id = _buffIndex++;
+            buff.state = BaseBuff.BuffState.Active;
+            buff.characterController = this;
+            buff.Start();
+            _buffDic.Add(buff.id, buff);
+            return buff.id;
         }
 
         public void RemoveBuff(BaseBuff buff)
         {
-            
+            buff.End();
+            _buffDic.Remove(buff.id);
+        }
+        
+        public void RemoveBuff(int id)
+        {
+            _buffDic[id].End();
+            _buffDic.Remove(id);
         }
 
-        public void Activate()
+        private void Activate()
         {
             if (IsActive) return;
             IsActive = true;
             PhysicsWorld.Instance.AddPhysicsCharacterController(this);
         }
 
-        public void Deactivate()
+        private void Deactivate()
         {
             if (!IsActive) return;
             IsActive = false;
             PhysicsWorld.Instance.RemovePhysicsCharacterController(this);
         }
 
-        public void Jump()
+        public void ExecuteSkill(SkillName skillName)
         {
-            mCharacterController.Jump();
+            _skillDic[skillName].Execute();
         }
 
-        public void Sprint()
+        public void SetSpeed(float s)
         {
-            var forward = transform.forward;
-            mCharacterController.Body.ApplyImpulse(mCharacterController.Body.position,
-                new BEPUutilities.Vector3(Convert.ToDecimal(forward.x), Convert.ToDecimal(forward.y), Convert.ToDecimal(forward.z)) * 30);
+            mCharacterController.SpeedScale = Convert.ToDecimal(speed);
+            speed = s;
         }
-    
+
         private void Update()
         {
             foreach (var info in _collisionEnterInfos)
@@ -154,6 +167,21 @@ namespace Base
             _collisionEnterInfos.Clear();
             _collisionExitInfos.Clear();
             OnUpdate();
+        }
+
+        public void Tick()
+        {
+            _deActiveBuffList.Clear();
+            foreach (var (_, buff) in _buffDic)
+            {
+                buff.Tick();
+                if (buff.state == BaseBuff.BuffState.DeActive) _deActiveBuffList.Add(buff);
+            }
+            foreach (var buff in _deActiveBuffList)
+            {
+                RemoveBuff(buff);
+            }
+            OnTick();
         }
     }
 }

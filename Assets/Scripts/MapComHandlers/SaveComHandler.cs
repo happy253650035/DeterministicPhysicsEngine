@@ -19,7 +19,7 @@ namespace MapComHandlers
             var command = new Command
             {
                 commandID = (int) CommandID.SaveCommand,
-                vector = com.survivePoint.position
+                vector3 = com.survivePoint.position
             };
             CommandManager.Instance.SendCommand(command);
         }
