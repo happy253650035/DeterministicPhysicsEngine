@@ -129,6 +129,11 @@ namespace Base
             _buffDic.Remove(id);
         }
 
+        public BaseBuff GetBuff(int id)
+        {
+            return _buffDic.ContainsKey(id) ? _buffDic[id] : null;
+        }
+
         private void Activate()
         {
             if (IsActive) return;

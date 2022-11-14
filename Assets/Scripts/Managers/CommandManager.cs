@@ -13,6 +13,7 @@ namespace Managers
         private static CommandManager _instance;
         private readonly Queue<Command> _commandsQueue = new();
         private readonly Queue<int> _conveyorQueue = new();
+        private IceBuff _iceBuff;
 
         public static CommandManager Instance
         {
@@ -80,6 +81,17 @@ namespace Managers
                         break;
                     case CommandID.IceCommand:
                         PlayerManager.Instance.myPlayer.speed = command.enterOrExit == 0 ? 0.7f : 0.5f;
+                        if (command.enterOrExit == 0)
+                        {
+                            if (_iceBuff != null) PlayerManager.Instance.myPlayer.RemoveBuff(_iceBuff);
+                            _iceBuff = new IceBuff();
+                            _iceBuff.damp = command.floatValue1;
+                            PlayerManager.Instance.myPlayer.AddBuff(_iceBuff);
+                        }
+                        else
+                        {
+                            PlayerManager.Instance.myPlayer.RemoveBuff(_iceBuff);
+                        }
                         break;
                     case CommandID.MoveCommand:
                         break;
@@ -108,19 +120,13 @@ namespace Managers
                             new Vector3(Convert.ToDecimal(command.vector3.x), Convert.ToDecimal(command.vector3.y),
                                 Convert.ToDecimal(command.vector3.z)) * 30);
                         break;
-                    case CommandID.TumbleBuffCommand:
-                        if (command.boolValue1)
-                        {
-                        }
-                        else
-                        {
-                        }
-
-                        break;
                     case CommandID.PlayerMoveCommand:
-                        PlayerManager.Instance.myPlayer.mCharacterController.HorizontalMotionConstraint
-                            .MovementDirection = new Vector2(Convert.ToDecimal(command.vector2.x),
-                            Convert.ToDecimal(command.vector2.y));
+                        if (_iceBuff != null)
+                            _iceBuff.CheckMovement(command.vector2);
+                        else
+                            PlayerManager.Instance.myPlayer.mCharacterController.HorizontalMotionConstraint
+                                .MovementDirection = new Vector2(Convert.ToDecimal(command.vector2.x),
+                                Convert.ToDecimal(command.vector2.y));
                         break;
                 }
             }
