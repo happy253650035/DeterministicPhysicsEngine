@@ -87,7 +87,7 @@ namespace Utils
                 var command = new Command
                 {
                     commandID = (int) CommandID.PlayerMoveCommand,
-                    vector2 = totalMovement
+                    vector2_1 = totalMovement
                 };
                 CommandManager.Instance.SendCommand(command);
             }

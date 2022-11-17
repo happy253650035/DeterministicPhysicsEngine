@@ -31,7 +31,9 @@ namespace Utils
         public bool boolValue1;
         public int intValue1;
         public float floatValue1;
-        public Vector3 vector3;
-        public Vector2 vector2;
+        public Vector3 vector3_1;
+        public Vector3 vector3_2;
+        public Vector2 vector2_1;
+        public Color color;
     }
 }

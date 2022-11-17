@@ -22,7 +22,7 @@ namespace MapComHandlers
             var command = new Command
             {
                 commandID = (int) CommandID.TumbleCommand,
-                vector3 = direction
+                vector3_1 = direction
             };
             CommandManager.Instance.SendCommand(command);
         }

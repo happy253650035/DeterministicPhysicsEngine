@@ -27,7 +27,7 @@ namespace MapComHandlers
             var command = new Command
             {
                 commandID = (int) CommandID.BounceCommand,
-                vector3 = direction
+                vector3_1 = direction
             };
             CommandManager.Instance.SendCommand(command);
         }

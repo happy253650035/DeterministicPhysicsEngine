@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Base;
 using BEPUphysics.Constraints;
+using FixMath.NET;
 using Managers;
 using UnityEngine;
 using Utils;
@@ -21,7 +22,7 @@ public class PhysicsWorld : MonoBehaviour
     private long _tick;
     private Thread _physicThread;
     private Space _physicsSpace;
-    public float TimeSinceStart => _tick * 0.033f;
+    public Fix64 TimeSinceStart => (Fix64) (_tick * 0.033f);
 
     private void Awake()
     {
@@ -94,6 +95,7 @@ public class PhysicsWorld : MonoBehaviour
     {
         CommandManager.Instance.Execute();
         PlayerManager.Instance.Tick();
+        PhysicsTweenManager.Instance.Tick();
         _physicsSpace.Update();
         _tick++;
     }

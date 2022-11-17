@@ -4,6 +4,7 @@ using BEPUphysics.Character;
 using BEPUphysics.Constraints.SolverGroups;
 using BEPUutilities;
 using Buffs;
+using PhysicsTweens;
 using Utils;
 
 namespace Managers
@@ -38,25 +39,25 @@ namespace Managers
                             PlayerManager.Instance.myPlayer.survivePoint;
                         break;
                     case CommandID.SaveCommand:
-                        PlayerManager.Instance.myPlayer.survivePoint = command.vector3;
+                        PlayerManager.Instance.myPlayer.survivePoint = command.vector3_1;
                         break;
                     case CommandID.RotateCommand:
                         PhysicsObjectManager.Instance.GetPhysicsObjectById(command.objectId).mEntity.angularVelocity =
-                            new BEPUutilities.Vector3(Convert.ToDecimal(command.vector3.x),
-                                Convert.ToDecimal(command.vector3.y), Convert.ToDecimal(command.vector3.z));
+                            new Vector3(Convert.ToDecimal(command.vector3_1.x),
+                                Convert.ToDecimal(command.vector3_1.y), Convert.ToDecimal(command.vector3_1.z));
                         break;
                     case CommandID.BounceCommand:
                     case CommandID.AccelerateCommand:
                         PlayerManager.Instance.myPlayer.mCharacterController.Body.ApplyImpulse(
                             PlayerManager.Instance.myPlayer.mCharacterController.Body.position,
-                            new BEPUutilities.Vector3(Convert.ToDecimal(command.vector3.x),
-                                Convert.ToDecimal(command.vector3.y), Convert.ToDecimal(command.vector3.z)));
+                            new Vector3(Convert.ToDecimal(command.vector3_1.x),
+                                Convert.ToDecimal(command.vector3_1.y), Convert.ToDecimal(command.vector3_1.z)));
                         break;
                     case CommandID.TumbleCommand:
                         PlayerManager.Instance.myPlayer.mCharacterController.Body.ApplyImpulse(
                             PlayerManager.Instance.myPlayer.mCharacterController.Body.position,
-                            new BEPUutilities.Vector3(Convert.ToDecimal(command.vector3.x),
-                                Convert.ToDecimal(command.vector3.y), Convert.ToDecimal(command.vector3.z)));
+                            new Vector3(Convert.ToDecimal(command.vector3_1.x),
+                                Convert.ToDecimal(command.vector3_1.y), Convert.ToDecimal(command.vector3_1.z)));
                         var tumbleBuff = new TumbleBuff();
                         tumbleBuff.duration = 2;
                         PlayerManager.Instance.myPlayer.AddBuff(tumbleBuff);
@@ -65,7 +66,7 @@ namespace Managers
                         if (command.enterOrExit == 0)
                         {
                             var speedBuff = new SpeedBuff();
-                            speedBuff.direction = command.vector3;
+                            speedBuff.direction = command.vector3_1;
                             var id = PlayerManager.Instance.myPlayer.AddBuff(speedBuff);
                             _conveyorQueue.Enqueue(id);
                         }
@@ -92,15 +93,26 @@ namespace Managers
                         {
                             PlayerManager.Instance.myPlayer.RemoveBuff(_iceBuff);
                         }
+
                         break;
                     case CommandID.MoveCommand:
+                        var tween = new PhysicsTweenPosition();
+                        tween.from = new Vector3(Convert.ToDecimal(command.vector3_1.x),
+                            Convert.ToDecimal(command.vector3_1.y), Convert.ToDecimal(command.vector3_1.z));
+                        tween.to = new Vector3(Convert.ToDecimal(command.vector3_2.x),
+                            Convert.ToDecimal(command.vector3_2.y), Convert.ToDecimal(command.vector3_2.z));
+                        tween.loop = command.boolValue1;
+                        tween.duration = Convert.ToDecimal(command.floatValue1);
+                        tween.target = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.objectId);
+                        PhysicsTweenManager.Instance.PlayTween(tween);
                         break;
                     case CommandID.SeeSawCommand:
                         var srcGo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.objectId);
                         var desGo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.intValue1);
                         var joint = new RevoluteJoint(srcGo.mEntity, desGo.mEntity, new BEPUutilities.Vector3(
-                            Convert.ToDecimal(command.vector3.x),
-                            Convert.ToDecimal(command.vector3.y), Convert.ToDecimal(command.vector3.z)), Vector3.Down);
+                                Convert.ToDecimal(command.vector3_1.x),
+                                Convert.ToDecimal(command.vector3_1.y), Convert.ToDecimal(command.vector3_1.z)),
+                            Vector3.Down);
                         PhysicsWorld.Instance.AddJoint(joint);
                         break;
                     case CommandID.AutoDisappearCommand:
@@ -117,16 +129,16 @@ namespace Managers
                     case CommandID.SprintCommand:
                         PlayerManager.Instance.myPlayer.mCharacterController.Body.ApplyImpulse(
                             PlayerManager.Instance.myPlayer.mCharacterController.Body.position,
-                            new Vector3(Convert.ToDecimal(command.vector3.x), Convert.ToDecimal(command.vector3.y),
-                                Convert.ToDecimal(command.vector3.z)) * 30);
+                            new Vector3(Convert.ToDecimal(command.vector3_1.x), Convert.ToDecimal(command.vector3_1.y),
+                                Convert.ToDecimal(command.vector3_1.z)) * 30);
                         break;
                     case CommandID.PlayerMoveCommand:
                         if (_iceBuff != null)
-                            _iceBuff.CheckMovement(command.vector2);
+                            _iceBuff.CheckMovement(command.vector2_1);
                         else
                             PlayerManager.Instance.myPlayer.mCharacterController.HorizontalMotionConstraint
-                                .MovementDirection = new Vector2(Convert.ToDecimal(command.vector2.x),
-                                Convert.ToDecimal(command.vector2.y));
+                                .MovementDirection = new Vector2(Convert.ToDecimal(command.vector2_1.x),
+                                Convert.ToDecimal(command.vector2_1.y));
                         break;
                 }
             }

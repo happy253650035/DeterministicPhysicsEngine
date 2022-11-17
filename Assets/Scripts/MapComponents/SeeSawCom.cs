@@ -18,7 +18,7 @@ namespace MapComponents
                 commandID = (int) CommandID.RotateCommand,
                 objectId = GetComponent<PhysicsObject>().id,
                 intValue1 = fulcrumTransform.GetComponent<PhysicsObject>().id,
-                vector3 = fulcrumPoint,
+                vector3_1 = fulcrumPoint,
             };
             CommandManager.Instance.SendCommand(command);
         }

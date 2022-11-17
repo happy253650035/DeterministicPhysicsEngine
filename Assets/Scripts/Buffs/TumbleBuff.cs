@@ -1,13 +1,14 @@
 ﻿using Base;
 using BEPUphysics.Character;
+using FixMath.NET;
 using Managers;
 
 namespace Buffs
 {
     public class TumbleBuff : BaseBuff
     {
-        public float duration;
-        private float _startTime;
+        public Fix64 duration;
+        private Fix64 _startTime;
         public override void Start()
         {
             _startTime = PhysicsWorld.Instance.TimeSinceStart;

@@ -17,7 +17,7 @@ namespace Skills
             var command = new Command
             {
                 commandID = (int) CommandID.SprintCommand,
-                vector3 = characterController.transform.forward
+                vector3_1 = characterController.transform.forward
             };
             CommandManager.Instance.SendCommand(command);
         }

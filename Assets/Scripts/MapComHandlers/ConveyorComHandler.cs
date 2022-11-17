@@ -23,7 +23,7 @@ namespace MapComHandlers
             {
                 commandID = (int) CommandID.ConveyorCommand,
                 enterOrExit = 0,
-                vector3 = direction
+                vector3_1 = direction
             };
             CommandManager.Instance.SendCommand(command);
         }

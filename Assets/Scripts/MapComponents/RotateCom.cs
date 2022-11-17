@@ -20,7 +20,7 @@ namespace MapComponents
                 objectId = GetComponent<PhysicsObject>().id,
                 boolValue1 = loop,
                 floatValue1 = duration,
-                vector3 = rotateVelocity
+                vector3_1 = rotateVelocity
             };
             CommandManager.Instance.SendCommand(command);
         }
