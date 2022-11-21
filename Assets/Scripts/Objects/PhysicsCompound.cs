@@ -25,10 +25,16 @@ namespace Objects
                 if (!sphere.gameObject.activeSelf)
                     continue;
                 var radius = sphere.radius;
+                if (useScale)
+                {
+                    var localScale = sphere.transform.localScale;
+                    radius *= Mathf.Max(Mathf.Max(localScale.x, localScale.y),
+                        localScale.z);
+                }
                 var pos = sphere.transform.localPosition + sphere.center;
                 var position = new BEPUutilities.Vector3(Convert.ToDecimal(pos.x), Convert.ToDecimal(pos.y),
                     Convert.ToDecimal(pos.z));
-                var shape = new CompoundShapeEntry(new SphereShape(Convert.ToDecimal(sphere.radius)), position);
+                var shape = new CompoundShapeEntry(new SphereShape(Convert.ToDecimal(radius)), position);
                 var shapeRotation = sphere.transform.localRotation;
                 shape.LocalTransform.Orientation = new BEPUutilities.Quaternion(Convert.ToDecimal(shapeRotation.x),
                     Convert.ToDecimal(shapeRotation.y), Convert.ToDecimal(shapeRotation.z), Convert.ToDecimal(shapeRotation.w));
@@ -57,10 +63,18 @@ namespace Objects
             {
                 if (!capsule.gameObject.activeSelf)
                     continue;
+                var radius = capsule.radius;
+                var height = capsule.height;
+                if (useScale)
+                {
+                    var localScale = capsule.transform.localScale;
+                    radius *= Mathf.Max(localScale.x, localScale.z);
+                    height *= localScale.y;
+                }
                 var pos = capsule.transform.localPosition + capsule.center;
                 var position = new BEPUutilities.Vector3(Convert.ToDecimal(pos.x), Convert.ToDecimal(pos.y),
                     Convert.ToDecimal(pos.z));
-                var shape = new CompoundShapeEntry(new CapsuleShape(Convert.ToDecimal(capsule.height), Convert.ToDecimal(capsule.radius)), position);
+                var shape = new CompoundShapeEntry(new CapsuleShape(Convert.ToDecimal(height), Convert.ToDecimal(radius)), position);
                 var shapeRotation = capsule.transform.localRotation;
                 shape.LocalTransform.Orientation = new BEPUutilities.Quaternion(Convert.ToDecimal(shapeRotation.x),
                     Convert.ToDecimal(shapeRotation.y), Convert.ToDecimal(shapeRotation.z), Convert.ToDecimal(shapeRotation.w));
@@ -70,10 +84,18 @@ namespace Objects
             {
                 if (!cylinder.gameObject.activeSelf)
                     continue;
+                var radius = cylinder.radius;
+                var height = cylinder.height;
+                if (useScale)
+                {
+                    var localScale = cylinder.transform.localScale;
+                    radius *= Mathf.Max(localScale.x, localScale.z);
+                    height *= localScale.y;
+                }
                 var pos = cylinder.transform.localPosition + cylinder.center;
                 var position = new BEPUutilities.Vector3(Convert.ToDecimal(pos.x), Convert.ToDecimal(pos.y),
                     Convert.ToDecimal(pos.z));
-                var shape = new CompoundShapeEntry(new CapsuleShape(Convert.ToDecimal(cylinder.height), Convert.ToDecimal(cylinder.radius)), position);
+                var shape = new CompoundShapeEntry(new CapsuleShape(Convert.ToDecimal(height), Convert.ToDecimal(radius)), position);
                 var shapeRotation = cylinder.transform.localRotation;
                 shape.LocalTransform.Orientation = new BEPUutilities.Quaternion(Convert.ToDecimal(shapeRotation.x),
                     Convert.ToDecimal(shapeRotation.y), Convert.ToDecimal(shapeRotation.z), Convert.ToDecimal(shapeRotation.w));
@@ -81,6 +103,38 @@ namespace Objects
             }
 
             _body = isStatic ? new CompoundBody(compoundShapes) : new CompoundBody(compoundShapes, Convert.ToDecimal(mass));
+            var length = (_body.position - BEPUutilities.Vector3.Zero).Length();
+            if (length > 0.01m)
+            {
+                foreach (var sphere in spheres)
+                {
+                    if (!sphere.gameObject.activeSelf)
+                        continue;
+                    sphere.transform.localPosition -= new Vector3((float)_body.position.X, (float)_body.position.Y,
+                        (float)_body.position.Z);
+                }
+                foreach (var box in boxes)
+                {
+                    if (!box.gameObject.activeSelf)
+                        continue;
+                    box.transform.localPosition -= new Vector3((float)_body.position.X, (float)_body.position.Y,
+                        (float)_body.position.Z);
+                }
+                foreach (var capsule in capsules)
+                {
+                    if (!capsule.gameObject.activeSelf)
+                        continue;
+                    capsule.transform.localPosition -= new Vector3((float)_body.position.X, (float)_body.position.Y,
+                        (float)_body.position.Z);
+                }
+                foreach (var cylinder in cylinders)
+                {
+                    if (!cylinder.gameObject.activeSelf)
+                        continue;
+                    cylinder.transform.localPosition -= new Vector3((float)_body.position.X, (float)_body.position.Y,
+                        (float)_body.position.Z);
+                }
+            }
 
             var p = transform.position;
             _body.position = new BEPUutilities.Vector3(Convert.ToDecimal(p.x),
