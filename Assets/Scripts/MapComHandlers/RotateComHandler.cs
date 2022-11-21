@@ -10,6 +10,7 @@ namespace MapComHandlers
     {
         public override void HandleEnterCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
         {
+            if (!other.GameObject) return;
             var com = other.GameObject.GetComponent<RotateCom>();
             if (com)
             {
@@ -19,6 +20,7 @@ namespace MapComHandlers
 
         public override void HandleExitCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
         {
+            if (!other.GameObject) return;
             var com = other.GameObject.GetComponent<RotateCom>();
             if (com)
             {

@@ -14,6 +14,7 @@ namespace MapComHandlers
     {
         public override void HandleEnterCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
         {
+            if (!other.GameObject) return;
             var com = other.GameObject.GetComponent<BounceCom>();
             if (!com) return;
             if (characterController is not PlayerController playerController) return;
@@ -34,6 +35,7 @@ namespace MapComHandlers
 
         public override void HandleExitCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
         {
+            if (!other.GameObject) return;
             var com = other.GameObject.GetComponent<BounceCom>();
             if (com)
             {

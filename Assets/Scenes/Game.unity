@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -287,6 +287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -338,6 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -659,7 +661,7 @@ GameObject:
   m_Component:
   - component: {fileID: 72906237}
   m_Layer: 0
-  m_Name: Hammer (3)
+  m_Name: Hammer4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1422,6 +1424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -1884,6 +1887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -2369,6 +2373,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -2404,7 +2409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &378139566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2417,7 +2422,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c32e7fb9a8415fd479c493700e9b6f60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loop: 0
+  duration: 0
   rotateVelocity: {x: 0, y: 0, z: 2}
+  curve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &378139567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2430,6 +2443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60033626d5640b9b36bd1d5c2735ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -2500,6 +2514,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -3013,6 +3028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -3209,6 +3225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -3326,6 +3343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -3446,6 +3464,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -3703,6 +3722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -4311,6 +4331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -4454,6 +4475,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -4616,6 +4638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -4700,6 +4723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -5051,6 +5075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -5102,6 +5127,7 @@ MonoBehaviour:
   mass: 2
   speed: 0.5
   gravity: 9.81
+  survivePoint: {x: 0, y: 0, z: 0}
 --- !u!136 &801009757
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5934,6 +5960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -6469,6 +6496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -6776,6 +6804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -7731,8 +7760,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1149215394}
+  - component: {fileID: 1149215396}
+  - component: {fileID: 1149215395}
   m_Layer: 0
-  m_Name: Hammer
+  m_Name: Hammer1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7756,6 +7787,63 @@ Transform:
   m_Father: {fileID: 1683421064}
   m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &1149215395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149215393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c32e7fb9a8415fd479c493700e9b6f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loop: 0
+  duration: 0
+  rotateVelocity: {x: 0, y: 2, z: 0}
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1149215396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149215393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d60033626d5640b9b36bd1d5c2735ddf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  isStatic: 1
+  isBullet: 0
+  useScale: 1
+  mass: 1
+  center: {x: 0, y: 0, z: 0}
 --- !u!4 &1156950484 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7324705577624711914, guid: 9eb847ab97b24024588682c8601254cf,
@@ -8308,6 +8396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 0
@@ -8568,6 +8657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -9027,6 +9117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -9611,6 +9702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -9772,6 +9864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -10581,6 +10674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -10651,6 +10745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -11060,7 +11155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1598405581}
   m_Layer: 0
-  m_Name: Hammer (1)
+  m_Name: Hammer2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11206,6 +11301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 0
@@ -11270,6 +11366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -12541,6 +12638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -13156,6 +13254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -13812,7 +13911,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1989439637}
   m_Layer: 0
-  m_Name: Hammer (4)
+  m_Name: Hammer5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14186,7 +14285,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2066030496}
   m_Layer: 0
-  m_Name: Hammer (2)
+  m_Name: Hammer3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14350,6 +14449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -14415,6 +14515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
@@ -14597,6 +14698,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34aa38a43724dc8489289beadb268c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   isStatic: 1
   isBullet: 0
   useScale: 1
