@@ -21,7 +21,6 @@ namespace Managers
         {
             RegisterHandler(new DeathComHandler());
             RegisterHandler(new BounceComHandler());
-            RegisterHandler(new RotateComHandler());
             RegisterHandler(new SaveComHandler());
             RegisterHandler(new TumbleComHandler());
             RegisterHandler(new AccelerateComHandler());

@@ -14,10 +14,18 @@ namespace Objects
         {
             var capsule = GetComponent<CapsuleCollider>();
             center = capsule.center;
-
+            var radius = capsule.radius;
+            var height = capsule.height;
+            if (useScale)
+            {
+                var localScale = capsule.transform.localScale;
+                radius *= Mathf.Max(localScale.x, localScale.z);
+                height *= localScale.y;
+            }
+            
             _capsure = isStatic
-                ? new Capsule(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(capsule.height), Convert.ToDecimal(capsule.radius))
-                : new Capsule(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(capsule.height), Convert.ToDecimal(capsule.radius),
+                ? new Capsule(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(height), Convert.ToDecimal(radius))
+                : new Capsule(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(height), Convert.ToDecimal(radius),
                     Convert.ToDecimal(mass));
 
             var pos = transform.position + center;

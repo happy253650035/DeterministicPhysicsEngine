@@ -14,10 +14,17 @@ namespace Objects
         {
             var sphere = GetComponent<SphereCollider>();
             center = sphere.center;
+            var radius = sphere.radius;
+            if (useScale)
+            {
+                var localScale = sphere.transform.localScale;
+                radius *= Mathf.Max(Mathf.Max(localScale.x, localScale.y),
+                    localScale.z);
+            }
 
             _sphere = isStatic
-                ? new Sphere(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(sphere.radius))
-                : new Sphere(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(sphere.radius), Convert.ToDecimal(mass));
+                ? new Sphere(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(radius))
+                : new Sphere(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(radius), Convert.ToDecimal(mass));
 
             var pos = this.transform.position + center;
             _sphere.position = new BEPUutilities.Vector3(Convert.ToDecimal(pos.x),

@@ -6,8 +6,14 @@ namespace Base
 {
     public abstract class PhysicsTween
     {
-        public PhysicsObject target;
-        public bool loop;
+        public enum LoopType
+        {
+            None = 1,
+            Loop = 2,
+            PingPong = 3,
+        }
+        public BaseObject target;
+        public LoopType loopType;
         public Fix64 duration;
         public bool isActive;
         public bool isPause;

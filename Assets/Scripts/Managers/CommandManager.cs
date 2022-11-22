@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Base;
 using BEPUphysics.Character;
 using BEPUphysics.Constraints.SolverGroups;
 using BEPUutilities;
@@ -42,9 +43,23 @@ namespace Managers
                         PlayerManager.Instance.myPlayer.survivePoint = command.vector3_1;
                         break;
                     case CommandID.RotateCommand:
-                        PhysicsObjectManager.Instance.GetPhysicsObjectById(command.objectId).mEntity.angularVelocity =
-                            new Vector3(Convert.ToDecimal(command.vector3_1.x),
-                                Convert.ToDecimal(command.vector3_1.y), Convert.ToDecimal(command.vector3_1.z));
+                        var tweenRotate = new PhysicsTweenRotation();
+                        tweenRotate.loopType = (PhysicsTween.LoopType) command.intValue1;
+                        tweenRotate.target = ObjectManager.Instance.GetBaseObjectById(command.objectId);
+                        tweenRotate.useVelocity = command.intValue2 == 1;
+                        if (tweenRotate.useVelocity)
+                        {
+                            tweenRotate.rotateVelocity = command.vector3_1;
+                        }
+                        else
+                        {
+                            tweenRotate.duration = Convert.ToDecimal(command.floatValue1);
+                            tweenRotate.from = new Vector3(Convert.ToDecimal(command.vector3_2.x),
+                                Convert.ToDecimal(command.vector3_2.y), Convert.ToDecimal(command.vector3_2.z));
+                            tweenRotate.to = new Vector3(Convert.ToDecimal(command.vector3_3.x),
+                                Convert.ToDecimal(command.vector3_3.y), Convert.ToDecimal(command.vector3_3.z));
+                        }
+                        PhysicsTweenManager.Instance.PlayTween(tweenRotate);
                         break;
                     case CommandID.BounceCommand:
                     case CommandID.AccelerateCommand:
@@ -101,9 +116,9 @@ namespace Managers
                             Convert.ToDecimal(command.vector3_1.y), Convert.ToDecimal(command.vector3_1.z));
                         tween.to = new Vector3(Convert.ToDecimal(command.vector3_2.x),
                             Convert.ToDecimal(command.vector3_2.y), Convert.ToDecimal(command.vector3_2.z));
-                        tween.loop = command.boolValue1;
+                        tween.loopType = (PhysicsTween.LoopType) command.intValue1;
                         tween.duration = Convert.ToDecimal(command.floatValue1);
-                        tween.target = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.objectId);
+                        tween.target = ObjectManager.Instance.GetBaseObjectById(command.objectId);
                         PhysicsTweenManager.Instance.PlayTween(tween);
                         break;
                     case CommandID.SeeSawCommand:

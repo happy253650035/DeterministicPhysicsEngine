@@ -8,13 +8,13 @@ namespace PhysicsTweens
     {
         public Vector3 from;
         public Vector3 to;
-
-        private Fix64 _curProgress = 0;
         
         public override void Start()
         {
-            _curProgress = 0;
-            totalTime = duration - startTime;
+            if (loopType != LoopType.Loop)
+            {
+                totalTime = duration - startTime;
+            }
         }
 
         public override void End()
@@ -28,7 +28,7 @@ namespace PhysicsTweens
             var elapse = PhysicsWorld.Instance.TimeSinceStart - startTime;
             var pos = Vector3.Lerp(from, to, elapse / totalTime);
             if (elapse > totalTime) isActive = false;
-            target.mEntity.Position = pos;
+            // target.mEntity.Position = pos;
         }
     }
 }

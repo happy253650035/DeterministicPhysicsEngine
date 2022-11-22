@@ -13,7 +13,7 @@ namespace Objects
     {
         private CompoundBody _body;
 
-        private void Awake()
+        private void OnValidate()
         {
             var spheres = GetComponentsInChildren<SphereCollider>();
             var boxes = GetComponentsInChildren<BoxCollider>();
@@ -135,7 +135,11 @@ namespace Objects
                         (float)_body.position.Z);
                 }
             }
+        }
 
+        private void Awake()
+        {
+            OnValidate();
             var p = transform.position;
             _body.position = new BEPUutilities.Vector3(Convert.ToDecimal(p.x),
                 Convert.ToDecimal(p.y), Convert.ToDecimal(p.z));

@@ -6,11 +6,17 @@ using Utils;
 
 namespace MapComponents
 {
-    public class MoveCom : MonoBehaviour
+    public class MoveCom : BaseObject
     {
+        public enum LoopType
+        {
+            None = 1,
+            Loop = 2,
+            PingPong = 3,
+        }
+        public LoopType loopType = LoopType.None;
         public Vector3 from;
         public Vector3 to;
-        public bool loop;
         public float duration;
         public AnimationCurve curve;
 
@@ -19,8 +25,8 @@ namespace MapComponents
             var command = new Command
             {
                 commandID = (int) CommandID.MoveCommand,
-                objectId = GetComponent<PhysicsObject>().id,
-                boolValue1 = loop,
+                objectId = id,
+                intValue1 = (int)loopType,
                 floatValue1 = duration,
                 vector3_1 = from,
                 vector3_2 = to

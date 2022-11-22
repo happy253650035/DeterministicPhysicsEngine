@@ -14,10 +14,18 @@ namespace Objects
         {
             var cylinder = GetComponent<CylinderCollider>();
             center = cylinder.center;
+            var radius = cylinder.radius;
+            var height = cylinder.height;
+            if (useScale)
+            {
+                var localScale = cylinder.transform.localScale;
+                radius *= Mathf.Max(localScale.x, localScale.z);
+                height *= localScale.y;
+            }
 
             _cylinder = isStatic
-                ? new Cylinder(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(cylinder.height), Convert.ToDecimal(cylinder.radius))
-                : new Cylinder(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(cylinder.height), Convert.ToDecimal(cylinder.radius),
+                ? new Cylinder(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(height), Convert.ToDecimal(radius))
+                : new Cylinder(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(height), Convert.ToDecimal(radius),
                     Convert.ToDecimal(mass));
 
             var pos = transform.position + center;

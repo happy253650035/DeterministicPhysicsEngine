@@ -30,9 +30,11 @@ namespace Utils
         public int enterOrExit; //0:enter, 1:exit
         public bool boolValue1;
         public int intValue1;
+        public int intValue2;
         public float floatValue1;
         public Vector3 vector3_1;
         public Vector3 vector3_2;
+        public Vector3 vector3_3;
         public Vector2 vector2_1;
         public Color color;
     }

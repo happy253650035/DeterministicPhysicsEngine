@@ -5,7 +5,9 @@ using Base;
 using BEPUphysics.Constraints;
 using FixMath.NET;
 using Managers;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Utils;
 using Space = BEPUphysics.Space;
 
@@ -26,6 +28,7 @@ public class PhysicsWorld : MonoBehaviour
 
     private void Awake()
     {
+        SortObject();
         _tick = 0;
         Application.targetFrameRate = 30;
         if (Instance != null) return;
@@ -82,6 +85,38 @@ public class PhysicsWorld : MonoBehaviour
     {
         _physicsSpace.Remove(controller.mCharacterController);
         PlayerManager.Instance.Remove(controller);
+    }
+    
+    private void SortObject()
+    {
+        var id = 1;
+        var gos = SceneManager.GetActiveScene().GetRootGameObjects();
+        foreach (var go in gos)
+        {
+            var pos = go.GetComponentsInChildren<PhysicsObject>();
+            foreach (var p in pos)
+            {
+                if (p)
+                {
+                    p.id = id;
+                    id++;
+                }
+            }
+        }
+        id = 1;
+        gos = SceneManager.GetActiveScene().GetRootGameObjects();
+        foreach (var go in gos)
+        {
+            var bos = go.GetComponentsInChildren<BaseObject>();
+            foreach (var b in bos)
+            {
+                if (b)
+                {
+                    b.id = id;
+                    id++;
+                }
+            }
+        }
     }
 
     private void Update()

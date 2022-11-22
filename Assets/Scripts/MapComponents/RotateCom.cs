@@ -5,22 +5,40 @@ using Utils;
 
 namespace MapComponents
 {
-    public class RotateCom : MonoBehaviour
+    public class RotateCom : BaseObject
     {
-        public bool loop;
+        public enum LoopType
+        {
+            None = 1,
+            Loop = 2,
+            PingPong = 3,
+        }
+        public enum RotateType
+        {
+            Veclocity = 1,
+            StartEnd = 2,
+        }
+        public LoopType loopType = LoopType.None;
         public float duration;
+        public RotateType rotateType = RotateType.Veclocity;
         public Vector3 rotateVelocity;
-        public AnimationCurve curve;
+        public Vector3 from;
+        public Vector3 to;
+        public AnimationCurve curve = new();
 
         private void Start()
         {
+            ObjectManager.Instance.Add(this);
             var command = new Command
             {
+                objectId = id,
                 commandID = (int) CommandID.RotateCommand,
-                objectId = GetComponent<PhysicsObject>().id,
-                boolValue1 = loop,
+                intValue1 = (int)loopType,
+                intValue2 = (int)rotateType,
                 floatValue1 = duration,
-                vector3_1 = rotateVelocity
+                vector3_1 = rotateVelocity,
+                vector3_2 = from,
+                vector3_3 = to
             };
             CommandManager.Instance.SendCommand(command);
         }

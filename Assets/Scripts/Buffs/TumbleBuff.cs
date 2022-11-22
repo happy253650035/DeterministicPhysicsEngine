@@ -12,13 +12,13 @@ namespace Buffs
         public override void Start()
         {
             _startTime = PhysicsWorld.Instance.TimeSinceStart;
-            PlayerManager.Instance.myPlayer.mCharacterController.StanceManager.DesiredStance =
+            characterController.mCharacterController.StanceManager.DesiredStance =
                 Stance.Prone;
         }
 
         public override void End()
         {
-            PlayerManager.Instance.myPlayer.mCharacterController.StanceManager.DesiredStance =
+            characterController.mCharacterController.StanceManager.DesiredStance =
                 Stance.Standing;
         }
 
