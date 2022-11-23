@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Base;
-using BEPUutilities;
+using UnityEngine;
 
 namespace PhysicsTweens
 {
@@ -9,17 +9,13 @@ namespace PhysicsTweens
     {
         public Vector3 from;
         public Vector3 to;
-        public UnityEngine.Vector3 rotateVelocity;
+        public Vector3 rotateVelocity;
         public bool useVelocity;
         private List<PhysicsObject> _physicsObjects = new();
 
         public override void Start()
         {
-            if (loopType != LoopType.Loop)
-            {
-                totalTime = duration - startTime;
-            }
-
+            totalTime = duration - startTime;
             for (var i = 0; i < target.transform.childCount; i++)
             {
                 var po = target.transform.GetChild(i).GetComponent<PhysicsObject>();
@@ -38,19 +34,22 @@ namespace PhysicsTweens
 
             if (elapse > totalTime)
             {
-                if (loopType != LoopType.Loop)
+                switch (loopType)
                 {
-                    elapse -= totalTime;
-                    if (loopType == LoopType.PingPong)
-                    {
-                        var temp = from;
-                        from = to;
-                        to = temp;
-                    }
-                    else
-                    {
+                    case LoopType.None:
                         isActive = false;
-                    }
+                        break;
+                    case LoopType.Loop:
+                        startTime = PhysicsWorld.Instance.TimeSinceStart;
+                        elapse = 0;
+                        break;
+                    case LoopType.PingPong:
+                        startTime = PhysicsWorld.Instance.TimeSinceStart;
+                        elapse = 0;
+                        (from, to) = (to, from);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
                 }
             }
             if (useVelocity)
@@ -59,19 +58,19 @@ namespace PhysicsTweens
             }
             else
             {
-                var rotate = (from - to) * elapse / totalTime + from;
-                target.transform.localEulerAngles =
-                    new UnityEngine.Vector3((float) rotate.X, (float) rotate.Y, (float) rotate.Z);
+                var factor = Mathf.Clamp01( elapse / totalTime);
+                target.transform.localRotation = Quaternion.Euler(new Vector3(
+                    Mathf.Lerp(@from.x, to.x, factor),
+                    Mathf.Lerp(@from.y, to.y, factor),
+                    Mathf.Lerp(@from.z, to.z, factor)));;
             }
             foreach (var po in _physicsObjects)
             {
                 var position = po.transform.position;
                 var orientation = po.transform.rotation;
-                po.mEntity.Position = new Vector3(Convert.ToDecimal(position.x),
-                    Convert.ToDecimal(position.y), Convert.ToDecimal(position.z));
-                po.mEntity.Orientation = new Quaternion(Convert.ToDecimal(orientation.x),
-                    Convert.ToDecimal(orientation.y), Convert.ToDecimal(orientation.z),
-                    Convert.ToDecimal(orientation.w));
+                po.mEntity.Position = new BEPUutilities.Vector3(position.x, position.y, position.z);
+                po.mEntity.Orientation = new BEPUutilities.Quaternion(orientation.x, orientation.y, orientation.z,
+                    orientation.w);
             }
         }
     }

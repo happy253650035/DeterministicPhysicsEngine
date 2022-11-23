@@ -23,16 +23,16 @@ namespace Objects
             }
 
             _sphere = isStatic
-                ? new Sphere(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(radius))
-                : new Sphere(new BEPUutilities.Vector3(0, 0, 0), Convert.ToDecimal(radius), Convert.ToDecimal(mass));
+                ? new Sphere(new BEPUutilities.Vector3(0, 0, 0), radius)
+                : new Sphere(new BEPUutilities.Vector3(0, 0, 0), radius, mass);
 
             var pos = this.transform.position + center;
-            _sphere.position = new BEPUutilities.Vector3(Convert.ToDecimal(pos.x),
-                Convert.ToDecimal(pos.y),
-                Convert.ToDecimal(pos.z));
+            _sphere.position = new BEPUutilities.Vector3(pos.x,
+                pos.y,
+                pos.z);
             var orientation = transform.rotation;
-            _sphere.orientation = new BEPUutilities.Quaternion(Convert.ToDecimal(orientation.x),
-                Convert.ToDecimal(orientation.y), Convert.ToDecimal(orientation.z), Convert.ToDecimal(orientation.w));
+            _sphere.orientation = new BEPUutilities.Quaternion(orientation.x,
+                orientation.y, orientation.z, orientation.w);
             mEntity = _sphere;
             mEntity.CollisionInformation.GameObject = gameObject;
         }
@@ -42,13 +42,13 @@ namespace Objects
             var material = GetComponent<PhysicsMaterial>();
             if (material)
             {
-                _sphere.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(material.staticFriction),
-                    Convert.ToDecimal(material.kineticFriction), Convert.ToDecimal(material.bounciness));
+                _sphere.material = new BEPUphysics.Materials.Material(material.staticFriction,
+                    material.kineticFriction, material.bounciness);
             }
             else
             {
-                _sphere.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(PhysicsWorld.Instance.staticFriction),
-                    Convert.ToDecimal(PhysicsWorld.Instance.kineticFriction), Convert.ToDecimal(PhysicsWorld.Instance.bounciness));
+                _sphere.material = new BEPUphysics.Materials.Material(PhysicsWorld.Instance.staticFriction,
+                    PhysicsWorld.Instance.kineticFriction, PhysicsWorld.Instance.bounciness);
             }
             Activate();
         }

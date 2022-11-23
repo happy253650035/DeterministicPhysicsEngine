@@ -21,15 +21,14 @@ namespace Buffs
         {
             if (direction == Vector2.zero)
             {
-                _damp = 100 - Convert.ToDecimal(damp)*100;
+                _damp = 100 - damp * 100;
                 _totalDamp = _damp;
                 _initDirection = characterController.mCharacterController.HorizontalMotionConstraint.MovementDirection;
                 if (_initDirection == BEPUutilities.Vector2.Zero) _damp = 0;
             }
             else
             {
-                _currentDirection = new BEPUutilities.Vector2(Convert.ToDecimal(direction.x),
-                    Convert.ToDecimal(direction.y));
+                _currentDirection = new BEPUutilities.Vector2(direction.x, direction.y);
                 if (_damp <= 0)
                 {
                     characterController.mCharacterController.HorizontalMotionConstraint.MovementDirection =

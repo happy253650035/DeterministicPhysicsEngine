@@ -922,28 +922,28 @@ namespace FixMath.NET
 		{
 			return new Fix64(value);
 		}
-		public static explicit operator Fix64(long value) {
+		public static implicit operator Fix64(long value) {
             return new Fix64(value * ONE);
         }
-        public static explicit operator long(Fix64 value) {
+        public static implicit operator long(Fix64 value) {
             return value.RawValue >> FRACTIONAL_PLACES;
         }
-        public static explicit operator Fix64(float value) {
-            return new Fix64((long)(value * ONE));
+        public static implicit operator Fix64(float value) {
+            return new Fix64((long)(Convert.ToDecimal(value) * ONE));
         }
-        public static explicit operator float(Fix64 value) {
+        public static implicit operator float(Fix64 value) {
             return (float)value.RawValue / ONE;
         }
-        public static explicit operator Fix64(double value) {
-            return new Fix64((long)(value * ONE));
+        public static implicit operator Fix64(double value) {
+            return new Fix64((long)(Convert.ToDecimal(value) * ONE));
         }
-        public static explicit operator double(Fix64 value) {
+        public static implicit operator double(Fix64 value) {
             return (double)value.RawValue / ONE;
         }
         public static implicit operator Fix64(decimal value) {
             return new Fix64((long)(value * ONE));
         }
-        public static explicit operator decimal(Fix64 value) {
+        public static implicit operator decimal(Fix64 value) {
             return (decimal)value.RawValue / ONE;
         }
 

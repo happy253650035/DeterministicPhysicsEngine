@@ -32,12 +32,11 @@ namespace Objects
                         localScale.z);
                 }
                 var pos = sphere.transform.localPosition + sphere.center;
-                var position = new BEPUutilities.Vector3(Convert.ToDecimal(pos.x), Convert.ToDecimal(pos.y),
-                    Convert.ToDecimal(pos.z));
-                var shape = new CompoundShapeEntry(new SphereShape(Convert.ToDecimal(radius)), position);
+                var position = new BEPUutilities.Vector3(pos.x, pos.y, pos.z);
+                var shape = new CompoundShapeEntry(new SphereShape(radius), position);
                 var shapeRotation = sphere.transform.localRotation;
-                shape.LocalTransform.Orientation = new BEPUutilities.Quaternion(Convert.ToDecimal(shapeRotation.x),
-                    Convert.ToDecimal(shapeRotation.y), Convert.ToDecimal(shapeRotation.z), Convert.ToDecimal(shapeRotation.w));
+                shape.LocalTransform.Orientation = new BEPUutilities.Quaternion(shapeRotation.x,
+                    shapeRotation.y, shapeRotation.z, shapeRotation.w);
                 compoundShapes.Add(shape);
             }
             foreach (var box in boxes)
@@ -50,13 +49,13 @@ namespace Objects
                     size = Vector3.Scale(box.size, box.transform.localScale);
                 }
                 var pos = box.transform.localPosition + box.center;
-                var position = new BEPUutilities.Vector3(Convert.ToDecimal(pos.x), Convert.ToDecimal(pos.y),
-                    Convert.ToDecimal(pos.z));
-                var shape = new CompoundShapeEntry(new BoxShape( Convert.ToDecimal(size.x),
-                    Convert.ToDecimal(size.y), Convert.ToDecimal(size.z)), position);
+                var position = new BEPUutilities.Vector3(pos.x, pos.y,
+                    pos.z);
+                var shape = new CompoundShapeEntry(new BoxShape( size.x,
+                    size.y, size.z), position);
                 var shapeRotation = box.transform.localRotation;
-                shape.LocalTransform.Orientation = new BEPUutilities.Quaternion(Convert.ToDecimal(shapeRotation.x),
-                    Convert.ToDecimal(shapeRotation.y), Convert.ToDecimal(shapeRotation.z), Convert.ToDecimal(shapeRotation.w));
+                shape.LocalTransform.Orientation = new BEPUutilities.Quaternion(shapeRotation.x,
+                    shapeRotation.y, shapeRotation.z, shapeRotation.w);
                 compoundShapes.Add(shape);
             }
             foreach (var capsule in capsules)
@@ -72,12 +71,12 @@ namespace Objects
                     height *= localScale.y;
                 }
                 var pos = capsule.transform.localPosition + capsule.center;
-                var position = new BEPUutilities.Vector3(Convert.ToDecimal(pos.x), Convert.ToDecimal(pos.y),
-                    Convert.ToDecimal(pos.z));
-                var shape = new CompoundShapeEntry(new CapsuleShape(Convert.ToDecimal(height), Convert.ToDecimal(radius)), position);
+                var position = new BEPUutilities.Vector3(pos.x, pos.y,
+                    pos.z);
+                var shape = new CompoundShapeEntry(new CapsuleShape(height, radius), position);
                 var shapeRotation = capsule.transform.localRotation;
-                shape.LocalTransform.Orientation = new BEPUutilities.Quaternion(Convert.ToDecimal(shapeRotation.x),
-                    Convert.ToDecimal(shapeRotation.y), Convert.ToDecimal(shapeRotation.z), Convert.ToDecimal(shapeRotation.w));
+                shape.LocalTransform.Orientation = new BEPUutilities.Quaternion(shapeRotation.x,
+                    shapeRotation.y, shapeRotation.z, shapeRotation.w);
                 compoundShapes.Add(shape);
             }
             foreach (var cylinder in cylinders)
@@ -93,16 +92,16 @@ namespace Objects
                     height *= localScale.y;
                 }
                 var pos = cylinder.transform.localPosition + cylinder.center;
-                var position = new BEPUutilities.Vector3(Convert.ToDecimal(pos.x), Convert.ToDecimal(pos.y),
-                    Convert.ToDecimal(pos.z));
-                var shape = new CompoundShapeEntry(new CapsuleShape(Convert.ToDecimal(height), Convert.ToDecimal(radius)), position);
+                var position = new BEPUutilities.Vector3(pos.x, pos.y,
+                    pos.z);
+                var shape = new CompoundShapeEntry(new CapsuleShape(height, radius), position);
                 var shapeRotation = cylinder.transform.localRotation;
-                shape.LocalTransform.Orientation = new BEPUutilities.Quaternion(Convert.ToDecimal(shapeRotation.x),
-                    Convert.ToDecimal(shapeRotation.y), Convert.ToDecimal(shapeRotation.z), Convert.ToDecimal(shapeRotation.w));
+                shape.LocalTransform.Orientation = new BEPUutilities.Quaternion(shapeRotation.x,
+                    shapeRotation.y, shapeRotation.z, shapeRotation.w);
                 compoundShapes.Add(shape);
             }
 
-            _body = isStatic ? new CompoundBody(compoundShapes) : new CompoundBody(compoundShapes, Convert.ToDecimal(mass));
+            _body = isStatic ? new CompoundBody(compoundShapes) : new CompoundBody(compoundShapes, mass);
             var length = (_body.position - BEPUutilities.Vector3.Zero).Length();
             if (length > 0.01m)
             {
@@ -141,11 +140,9 @@ namespace Objects
         {
             OnValidate();
             var p = transform.position;
-            _body.position = new BEPUutilities.Vector3(Convert.ToDecimal(p.x),
-                Convert.ToDecimal(p.y), Convert.ToDecimal(p.z));
+            _body.position = new BEPUutilities.Vector3(p.x, p.y, p.z);
             var orientation = transform.rotation;
-            _body.orientation = new BEPUutilities.Quaternion(Convert.ToDecimal(orientation.x),
-                Convert.ToDecimal(orientation.y), Convert.ToDecimal(orientation.z), Convert.ToDecimal(orientation.w));
+            _body.orientation = new BEPUutilities.Quaternion(orientation.x, orientation.y, orientation.z, orientation.w);
             mEntity = _body;
             mEntity.CollisionInformation.GameObject = gameObject;
         }
@@ -155,13 +152,13 @@ namespace Objects
             var material = GetComponent<PhysicsMaterial>();
             if (material)
             {
-                _body.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(material.staticFriction),
-                    Convert.ToDecimal(material.kineticFriction), Convert.ToDecimal(material.bounciness));
+                _body.material = new BEPUphysics.Materials.Material(material.staticFriction,
+                    material.kineticFriction, material.bounciness);
             }
             else
             {
-                _body.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(PhysicsWorld.Instance.staticFriction),
-                    Convert.ToDecimal(PhysicsWorld.Instance.kineticFriction), Convert.ToDecimal(PhysicsWorld.Instance.bounciness));
+                _body.material = new BEPUphysics.Materials.Material(PhysicsWorld.Instance.staticFriction,
+                    PhysicsWorld.Instance.kineticFriction, PhysicsWorld.Instance.bounciness);
             }
             Activate();
         }

@@ -11,8 +11,7 @@ namespace Buffs
 
         public override void Start()
         {
-            _impulse = new BEPUutilities.Vector3(Convert.ToDecimal(direction.x), Convert.ToDecimal(direction.y),
-                Convert.ToDecimal(direction.z));
+            _impulse = new BEPUutilities.Vector3(direction.x, direction.y, direction.z);
         }
 
         public override void End()

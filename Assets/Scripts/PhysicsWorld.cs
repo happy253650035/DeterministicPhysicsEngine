@@ -1,14 +1,10 @@
-using System;
-using System.Collections.Generic;
 using System.Threading;
 using Base;
 using BEPUphysics.Constraints;
 using FixMath.NET;
 using Managers;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Utils;
 using Space = BEPUphysics.Space;
 
 public class PhysicsWorld : MonoBehaviour
@@ -35,7 +31,7 @@ public class PhysicsWorld : MonoBehaviour
         Instance = this;
         Physics.autoSimulation = false;
         _physicsSpace = new Space();
-        _physicsSpace.ForceUpdater.gravity = new BEPUutilities.Vector3(0, -Convert.ToDecimal(gravity), 0);
+        _physicsSpace.ForceUpdater.gravity = new BEPUutilities.Vector3(0, -gravity, 0);
         _physicsSpace.TimeStepSettings.TimeStepDuration = 0.02M;
         MapComManager.Instance.Init();
         if (!Asynchronous) return;

@@ -47,13 +47,13 @@ namespace Base
             mCharacterController = new CharacterController();
             var pos = transform.position;
             var center = capsule.center;
-            mCharacterController.Body.position = new BEPUutilities.Vector3(Convert.ToDecimal(pos.x + center.x),
-                Convert.ToDecimal(pos.y + center.y), Convert.ToDecimal(pos.z + center.z));
-            mCharacterController.Body.Height = Convert.ToDecimal(capsule.height);
-            mCharacterController.Body.Radius = Convert.ToDecimal(capsule.radius);
-            mCharacterController.Body.Mass = Convert.ToDecimal(mass);
-            mCharacterController.SpeedScale = Convert.ToDecimal(speed);
-            mCharacterController.Body.Gravity = new BEPUutilities.Vector3(0, -Convert.ToDecimal(gravity), 0);
+            mCharacterController.Body.position = new BEPUutilities.Vector3(pos.x + center.x,
+                pos.y + center.y, pos.z + center.z);
+            mCharacterController.Body.Height = capsule.height;
+            mCharacterController.Body.Radius = capsule.radius;
+            mCharacterController.Body.Mass = mass;
+            mCharacterController.SpeedScale = speed;
+            mCharacterController.Body.Gravity = new BEPUutilities.Vector3(0, -gravity, 0);
             mCharacterController.Body.CollisionInformation.GameObject = gameObject;
             OnAwake();
         }
@@ -63,13 +63,13 @@ namespace Base
             var material = GetComponent<PhysicsMaterial>();
             if (material)
             {
-                mCharacterController.Body.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(material.staticFriction),
-                    Convert.ToDecimal(material.kineticFriction), Convert.ToDecimal(material.bounciness));
+                mCharacterController.Body.material = new BEPUphysics.Materials.Material(material.staticFriction,
+                    material.kineticFriction, material.bounciness);
             }
             else
             {
-                mCharacterController.Body.material = new BEPUphysics.Materials.Material(Convert.ToDecimal(PhysicsWorld.Instance.staticFriction),
-                    Convert.ToDecimal(PhysicsWorld.Instance.kineticFriction), Convert.ToDecimal(PhysicsWorld.Instance.bounciness));
+                mCharacterController.Body.material = new BEPUphysics.Materials.Material(PhysicsWorld.Instance.staticFriction,
+                    PhysicsWorld.Instance.kineticFriction, PhysicsWorld.Instance.bounciness);
             }
             Activate();
             mCharacterController.Body.CollisionInformation.Events.InitialCollisionDetected +=
@@ -155,7 +155,7 @@ namespace Base
 
         public void SetSpeed(float s)
         {
-            mCharacterController.SpeedScale = Convert.ToDecimal(speed);
+            mCharacterController.SpeedScale = speed;
             speed = s;
         }
 

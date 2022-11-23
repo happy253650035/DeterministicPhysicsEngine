@@ -53,11 +53,9 @@ namespace Managers
                         }
                         else
                         {
-                            tweenRotate.duration = Convert.ToDecimal(command.floatValue1);
-                            tweenRotate.from = new Vector3(Convert.ToDecimal(command.vector3_2.x),
-                                Convert.ToDecimal(command.vector3_2.y), Convert.ToDecimal(command.vector3_2.z));
-                            tweenRotate.to = new Vector3(Convert.ToDecimal(command.vector3_3.x),
-                                Convert.ToDecimal(command.vector3_3.y), Convert.ToDecimal(command.vector3_3.z));
+                            tweenRotate.duration = command.floatValue1;
+                            tweenRotate.from = command.vector3_2;
+                            tweenRotate.to = command.vector3_3;
                         }
                         PhysicsTweenManager.Instance.PlayTween(tweenRotate);
                         break;
@@ -65,14 +63,14 @@ namespace Managers
                     case CommandID.AccelerateCommand:
                         PlayerManager.Instance.myPlayer.mCharacterController.Body.ApplyImpulse(
                             PlayerManager.Instance.myPlayer.mCharacterController.Body.position,
-                            new Vector3(Convert.ToDecimal(command.vector3_1.x),
-                                Convert.ToDecimal(command.vector3_1.y), Convert.ToDecimal(command.vector3_1.z)));
+                            new Vector3(command.vector3_1.x,
+                                command.vector3_1.y, command.vector3_1.z));
                         break;
                     case CommandID.TumbleCommand:
                         PlayerManager.Instance.myPlayer.mCharacterController.Body.ApplyImpulse(
                             PlayerManager.Instance.myPlayer.mCharacterController.Body.position,
-                            new Vector3(Convert.ToDecimal(command.vector3_1.x),
-                                Convert.ToDecimal(command.vector3_1.y), Convert.ToDecimal(command.vector3_1.z)));
+                            new Vector3(command.vector3_1.x,
+                                command.vector3_1.y, command.vector3_1.z));
                         var tumbleBuff = new TumbleBuff();
                         tumbleBuff.duration = 2;
                         PlayerManager.Instance.myPlayer.AddBuff(tumbleBuff);
@@ -112,22 +110,21 @@ namespace Managers
                         break;
                     case CommandID.MoveCommand:
                         var tween = new PhysicsTweenPosition();
-                        tween.from = new Vector3(Convert.ToDecimal(command.vector3_1.x),
-                            Convert.ToDecimal(command.vector3_1.y), Convert.ToDecimal(command.vector3_1.z));
-                        tween.to = new Vector3(Convert.ToDecimal(command.vector3_2.x),
-                            Convert.ToDecimal(command.vector3_2.y), Convert.ToDecimal(command.vector3_2.z));
+                        tween.from = new Vector3(command.vector3_1.x,
+                            command.vector3_1.y, command.vector3_1.z);
+                        tween.to = new Vector3(command.vector3_2.x,
+                            command.vector3_2.y, command.vector3_2.z);
                         tween.loopType = (PhysicsTween.LoopType) command.intValue1;
-                        tween.duration = Convert.ToDecimal(command.floatValue1);
+                        tween.duration = command.floatValue1;
                         tween.target = ObjectManager.Instance.GetBaseObjectById(command.objectId);
                         PhysicsTweenManager.Instance.PlayTween(tween);
                         break;
                     case CommandID.SeeSawCommand:
-                        var srcGo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.objectId);
-                        var desGo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.intValue1);
-                        var joint = new RevoluteJoint(srcGo.mEntity, desGo.mEntity, new BEPUutilities.Vector3(
-                                Convert.ToDecimal(command.vector3_1.x),
-                                Convert.ToDecimal(command.vector3_1.y), Convert.ToDecimal(command.vector3_1.z)),
-                            Vector3.Down);
+                        var srcGo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.intValue1);
+                        var desGo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.intValue2);
+                        var joint = new RevoluteJoint(srcGo.mEntity, desGo.mEntity, new Vector3(
+                                command.vector3_1.x, command.vector3_1.y, command.vector3_1.z),
+                            Vector3.Backward);
                         PhysicsWorld.Instance.AddJoint(joint);
                         break;
                     case CommandID.AutoDisappearCommand:
@@ -144,16 +141,16 @@ namespace Managers
                     case CommandID.SprintCommand:
                         PlayerManager.Instance.myPlayer.mCharacterController.Body.ApplyImpulse(
                             PlayerManager.Instance.myPlayer.mCharacterController.Body.position,
-                            new Vector3(Convert.ToDecimal(command.vector3_1.x), Convert.ToDecimal(command.vector3_1.y),
-                                Convert.ToDecimal(command.vector3_1.z)) * 30);
+                            new Vector3(command.vector3_1.x, command.vector3_1.y,
+                                command.vector3_1.z) * 30);
                         break;
                     case CommandID.PlayerMoveCommand:
                         if (_iceBuff != null)
                             _iceBuff.CheckMovement(command.vector2_1);
                         else
                             PlayerManager.Instance.myPlayer.mCharacterController.HorizontalMotionConstraint
-                                .MovementDirection = new Vector2(Convert.ToDecimal(command.vector2_1.x),
-                                Convert.ToDecimal(command.vector2_1.y));
+                                .MovementDirection = new Vector2(command.vector2_1.x,
+                                command.vector2_1.y);
                         break;
                 }
             }
