@@ -743,5 +743,10 @@ namespace BEPUutilities
             Hermite(ref value1, ref tangent1, ref value2, ref tangent2, interpolationAmount, out toReturn);
             return toReturn;
         }
+        
+        public static implicit operator Vector3(UnityEngine.Vector3 value)
+        {
+            return new Vector3(value.x, value.y, value.z);
+        }
     }
 }

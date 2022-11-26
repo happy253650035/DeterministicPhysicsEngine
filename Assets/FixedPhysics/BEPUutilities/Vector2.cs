@@ -447,6 +447,10 @@ namespace BEPUutilities
             return X.GetHashCode() + Y.GetHashCode();
         }
 
+        public static implicit operator Vector2(UnityEngine.Vector2 value)
+        {
+            return new Vector2(value.x, value.y);
+        }
 
     }
 }

@@ -7,7 +7,7 @@ namespace Utils
     {
         public float followSpeed = 10;
         public Transform follower;
-        public Vector3 offset = new Vector3(0, 3, -3);
+        public Vector3 offset = new(0, 3, -3);
 
         private void Start()
         {

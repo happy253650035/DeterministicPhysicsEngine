@@ -19,6 +19,7 @@ namespace CharacterControllers
 
         protected override void OnStart()
         {
+            survivePoint = transform.position;
             OnEnterCharacterMainThread += EnterCharacterMainThread;
             OnExitCharacterMainThread += ExitCharacterMainThread;
             AddSkill(new JumpSkill());

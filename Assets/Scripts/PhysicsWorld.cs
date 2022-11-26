@@ -5,6 +5,7 @@ using FixMath.NET;
 using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Utils;
 using Space = BEPUphysics.Space;
 
 public class PhysicsWorld : MonoBehaviour

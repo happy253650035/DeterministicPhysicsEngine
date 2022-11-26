@@ -36,10 +36,12 @@ namespace Managers
                 switch (commandID)
                 {
                     case CommandID.DeadCommand:
-                        PlayerManager.Instance.myPlayer.transform.position =
-                            PlayerManager.Instance.myPlayer.survivePoint;
+                        var point = PlayerManager.Instance.myPlayer.survivePoint;
+                        PlayerManager.Instance.myPlayer.mCharacterController.Body.Position = point;
                         break;
                     case CommandID.SaveCommand:
+                        var savePo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.objectId);
+                        savePo.Deactivate();
                         PlayerManager.Instance.myPlayer.survivePoint = command.vector3_1;
                         break;
                     case CommandID.RotateCommand:
@@ -63,14 +65,12 @@ namespace Managers
                     case CommandID.AccelerateCommand:
                         PlayerManager.Instance.myPlayer.mCharacterController.Body.ApplyImpulse(
                             PlayerManager.Instance.myPlayer.mCharacterController.Body.position,
-                            new Vector3(command.vector3_1.x,
-                                command.vector3_1.y, command.vector3_1.z));
+                            command.vector3_1);
                         break;
                     case CommandID.TumbleCommand:
                         PlayerManager.Instance.myPlayer.mCharacterController.Body.ApplyImpulse(
                             PlayerManager.Instance.myPlayer.mCharacterController.Body.position,
-                            new Vector3(command.vector3_1.x,
-                                command.vector3_1.y, command.vector3_1.z));
+                            command.vector3_1);
                         var tumbleBuff = new TumbleBuff();
                         tumbleBuff.duration = 2;
                         PlayerManager.Instance.myPlayer.AddBuff(tumbleBuff);
@@ -110,10 +110,8 @@ namespace Managers
                         break;
                     case CommandID.MoveCommand:
                         var tween = new PhysicsTweenPosition();
-                        tween.from = new Vector3(command.vector3_1.x,
-                            command.vector3_1.y, command.vector3_1.z);
-                        tween.to = new Vector3(command.vector3_2.x,
-                            command.vector3_2.y, command.vector3_2.z);
+                        tween.from = command.vector3_1;
+                        tween.to = command.vector3_2;
                         tween.loopType = (PhysicsTween.LoopType) command.intValue1;
                         tween.duration = command.floatValue1;
                         tween.target = ObjectManager.Instance.GetBaseObjectById(command.objectId);
@@ -122,8 +120,7 @@ namespace Managers
                     case CommandID.SeeSawCommand:
                         var srcGo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.intValue1);
                         var desGo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.intValue2);
-                        var joint = new RevoluteJoint(srcGo.mEntity, desGo.mEntity, new Vector3(
-                                command.vector3_1.x, command.vector3_1.y, command.vector3_1.z),
+                        var joint = new RevoluteJoint(srcGo.mEntity, desGo.mEntity, command.vector3_1,
                             Vector3.Backward);
                         PhysicsWorld.Instance.AddJoint(joint);
                         break;
@@ -141,16 +138,14 @@ namespace Managers
                     case CommandID.SprintCommand:
                         PlayerManager.Instance.myPlayer.mCharacterController.Body.ApplyImpulse(
                             PlayerManager.Instance.myPlayer.mCharacterController.Body.position,
-                            new Vector3(command.vector3_1.x, command.vector3_1.y,
-                                command.vector3_1.z) * 30);
+                            command.vector3_1 * 30);
                         break;
                     case CommandID.PlayerMoveCommand:
                         if (_iceBuff != null)
                             _iceBuff.CheckMovement(command.vector2_1);
                         else
                             PlayerManager.Instance.myPlayer.mCharacterController.HorizontalMotionConstraint
-                                .MovementDirection = new Vector2(command.vector2_1.x,
-                                command.vector2_1.y);
+                                .MovementDirection = command.vector2_1;
                         break;
                 }
             }

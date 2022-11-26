@@ -16,9 +16,10 @@ namespace MapComHandlers
             if (!other.GameObject) return;
             var com = other.GameObject.GetComponent<SaveCom>();
             if (!com) return;
-            if (characterController is not PlayerController playerController) return;
+            if (characterController is not PlayerController) return;
             var command = new Command
             {
+                objectId = other.GameObject.GetComponent<PhysicsObject>().id,
                 commandID = (int) CommandID.SaveCommand,
                 vector3_1 = com.survivePoint.position
             };

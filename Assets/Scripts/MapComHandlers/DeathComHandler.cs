@@ -16,7 +16,7 @@ namespace MapComHandlers
             if (!other.GameObject) return;
             var com = other.GameObject.GetComponent<DeathCom>();
             if (!com) return;
-            if (characterController is not PlayerController playerController) return;
+            if (characterController is not PlayerController) return;
             var command = new Command
             {
                 commandID = (int) CommandID.DeadCommand

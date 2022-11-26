@@ -10,9 +10,12 @@ namespace Colliders
 
         private void OnDrawGizmosSelected()
         {
-            var offset = height / 2;
-            DrawCircle(offset, radius);
-            DrawCircle(-offset, radius);
+            var localScale = transform.localScale;
+            var r = radius * Mathf.Max(localScale.x, localScale.z);
+            var h = height * localScale.y;
+            var offset = h / 2;
+            DrawCircle(offset, r);
+            DrawCircle(-offset, r);
         }
 
         private void DrawCircle(float offset, float r)
