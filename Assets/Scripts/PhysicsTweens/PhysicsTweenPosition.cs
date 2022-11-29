@@ -1,6 +1,9 @@
-﻿using Base;
-using BEPUutilities;
-using FixMath.NET;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Base;
+using UnityEngine;
+using Vector3 = BEPUutilities.Vector3;
 
 namespace PhysicsTweens
 {
@@ -8,13 +11,12 @@ namespace PhysicsTweens
     {
         public Vector3 from;
         public Vector3 to;
+        private List<PhysicsObject> _physicsObjects = new();
         
         public override void Start()
         {
-            if (loopType != LoopType.Loop)
-            {
-                totalTime = duration - startTime;
-            }
+            totalTime = duration + delay - startTime;
+            _physicsObjects = target.transform.GetComponentsInChildren<PhysicsObject>().ToList();
         }
 
         public override void End()
@@ -26,9 +28,37 @@ namespace PhysicsTweens
         {
             if (!isActive) return;
             var elapse = PhysicsWorld.Instance.TimeSinceStart - startTime;
-            var pos = Vector3.Lerp(from, to, elapse / totalTime);
-            if (elapse > totalTime) isActive = false;
-            // target.mEntity.Position = pos;
+            if (elapse < delay) return;
+
+            if (elapse > totalTime)
+            {
+                switch (loopType)
+                {
+                    case LoopType.None:
+                        isActive = false;
+                        break;
+                    case LoopType.Loop:
+                        startTime = PhysicsWorld.Instance.TimeSinceStart - delay;
+                        elapse = 0;
+                        break;
+                    case LoopType.PingPong:
+                        startTime = PhysicsWorld.Instance.TimeSinceStart - delay;
+                        elapse = 0;
+                        (from, to) = (to, from);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            
+            var factor = Mathf.Clamp01( (elapse - delay) / totalTime);
+            var point = Vector3.Lerp(from, to, factor);
+            target.transform.localPosition = new UnityEngine.Vector3(point.X, point.Y, point.Z);
+            foreach (var po in _physicsObjects)
+            {
+                var position = po.transform.position;
+                po.mEntity.Position = new Vector3(position.x, position.y, position.z);
+            }
         }
     }
 }

@@ -32,6 +32,7 @@ namespace Utils
         public int intValue1;
         public int intValue2;
         public float floatValue1;
+        public float floatValue2;
         public Vector3 vector3_1;
         public Vector3 vector3_2;
         public Vector3 vector3_3;

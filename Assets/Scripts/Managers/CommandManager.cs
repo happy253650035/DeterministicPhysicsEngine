@@ -38,6 +38,11 @@ namespace Managers
                     case CommandID.DeadCommand:
                         var point = PlayerManager.Instance.myPlayer.survivePoint;
                         PlayerManager.Instance.myPlayer.mCharacterController.Body.Position = point;
+                        if (_iceBuff != null)
+                        {
+                            PlayerManager.Instance.myPlayer.RemoveBuff(_iceBuff);
+                            _iceBuff = null;
+                        }
                         break;
                     case CommandID.SaveCommand:
                         var savePo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.objectId);
@@ -56,6 +61,7 @@ namespace Managers
                         else
                         {
                             tweenRotate.duration = command.floatValue1;
+                            tweenRotate.delay = command.floatValue2;
                             tweenRotate.from = command.vector3_2;
                             tweenRotate.to = command.vector3_3;
                         }
@@ -105,6 +111,7 @@ namespace Managers
                         else
                         {
                             PlayerManager.Instance.myPlayer.RemoveBuff(_iceBuff);
+                            _iceBuff = null;
                         }
 
                         break;
@@ -114,6 +121,7 @@ namespace Managers
                         tween.to = command.vector3_2;
                         tween.loopType = (PhysicsTween.LoopType) command.intValue1;
                         tween.duration = command.floatValue1;
+                        tween.delay = command.floatValue2;
                         tween.target = ObjectManager.Instance.GetBaseObjectById(command.objectId);
                         PhysicsTweenManager.Instance.PlayTween(tween);
                         break;

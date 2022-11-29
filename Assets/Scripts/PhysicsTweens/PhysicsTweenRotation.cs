@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Base;
 using UnityEngine;
 
@@ -15,12 +16,8 @@ namespace PhysicsTweens
 
         public override void Start()
         {
-            totalTime = duration - startTime;
-            for (var i = 0; i < target.transform.childCount; i++)
-            {
-                var po = target.transform.GetChild(i).GetComponent<PhysicsObject>();
-                if (po) _physicsObjects.Add(po);
-            }
+            totalTime = duration + delay - startTime;
+            _physicsObjects = target.transform.GetComponentsInChildren<PhysicsObject>().ToList();
         }
 
         public override void End()
@@ -31,6 +28,7 @@ namespace PhysicsTweens
         {
             if (!isActive) return;
             var elapse = PhysicsWorld.Instance.TimeSinceStart - startTime;
+            if (elapse < delay) return;
 
             if (elapse > totalTime)
             {
@@ -40,11 +38,11 @@ namespace PhysicsTweens
                         isActive = false;
                         break;
                     case LoopType.Loop:
-                        startTime = PhysicsWorld.Instance.TimeSinceStart;
+                        startTime = PhysicsWorld.Instance.TimeSinceStart - delay;
                         elapse = 0;
                         break;
                     case LoopType.PingPong:
-                        startTime = PhysicsWorld.Instance.TimeSinceStart;
+                        startTime = PhysicsWorld.Instance.TimeSinceStart - delay;
                         elapse = 0;
                         (from, to) = (to, from);
                         break;
@@ -58,7 +56,7 @@ namespace PhysicsTweens
             }
             else
             {
-                var factor = Mathf.Clamp01( elapse / totalTime);
+                var factor = Mathf.Clamp01( (elapse - delay) / totalTime);
                 target.transform.localRotation = Quaternion.Euler(new Vector3(
                     Mathf.Lerp(@from.x, to.x, factor),
                     Mathf.Lerp(@from.y, to.y, factor),

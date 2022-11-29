@@ -20,6 +20,7 @@ namespace MapComponents
         }
         public LoopType loopType = LoopType.None;
         public float duration;
+        public float delay;
         public RotateType rotateType = RotateType.Veclocity;
         public Vector3 rotateVelocity;
         public Vector3 from;
@@ -36,6 +37,7 @@ namespace MapComponents
                 intValue1 = (int)loopType,
                 intValue2 = (int)rotateType,
                 floatValue1 = duration,
+                floatValue2 = delay,
                 vector3_1 = rotateVelocity,
                 vector3_2 = from,
                 vector3_3 = to

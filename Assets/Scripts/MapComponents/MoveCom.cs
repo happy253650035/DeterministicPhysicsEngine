@@ -18,16 +18,19 @@ namespace MapComponents
         public Vector3 from;
         public Vector3 to;
         public float duration;
+        public float delay;
         public AnimationCurve curve;
 
         private void Start()
         {
+            ObjectManager.Instance.Add(this);
             var command = new Command
             {
                 commandID = (int) CommandID.MoveCommand,
                 objectId = id,
                 intValue1 = (int)loopType,
                 floatValue1 = duration,
+                floatValue2 = delay,
                 vector3_1 = from,
                 vector3_2 = to
             };

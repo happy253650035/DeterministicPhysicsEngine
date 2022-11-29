@@ -14,7 +14,8 @@ namespace Base
         }
         public BaseObject target;
         public LoopType loopType;
-        public Fix64 duration;
+        public Fix64 duration = 0;
+        public Fix64 delay = 0;
         public bool isActive;
         public bool isPause;
         protected Fix64 startTime;

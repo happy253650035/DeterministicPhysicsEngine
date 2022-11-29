@@ -24,6 +24,7 @@ namespace Managers
             RegisterHandler(new SaveComHandler());
             RegisterHandler(new TumbleComHandler());
             RegisterHandler(new AccelerateComHandler());
+            RegisterHandler(new IceComHandler());
         }
 
         public void HandleEnterMapCom(EntityCollidable sender, Collidable other, CollidablePairHandler pair, BaseCharacterController characterController)
