@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using Base;
 using BEPUphysics.Character;
 using BEPUphysics.Constraints.SolverGroups;
+using BEPUphysics.Constraints.TwoEntity.Motors;
 using BEPUutilities;
 using Buffs;
+using FixMath.NET;
+using MapComponents;
 using PhysicsTweens;
 using Utils;
 
@@ -68,6 +71,17 @@ namespace Managers
                         PhysicsTweenManager.Instance.PlayTween(tweenRotate);
                         break;
                     case CommandID.BounceCommand:
+                        if (command.intValue1 == (int)BounceCom.BounceType.Ground)
+                        {
+                            PlayerManager.Instance.myPlayer.mCharacterController.Jump(command.vector3_1.y);
+                        }
+                        else
+                        {
+                            PlayerManager.Instance.myPlayer.mCharacterController.Body.ApplyImpulse(
+                                PlayerManager.Instance.myPlayer.mCharacterController.Body.position,
+                                command.vector3_1);
+                        }
+                        break;
                     case CommandID.AccelerateCommand:
                         PlayerManager.Instance.myPlayer.mCharacterController.Body.ApplyImpulse(
                             PlayerManager.Instance.myPlayer.mCharacterController.Body.position,
@@ -126,12 +140,13 @@ namespace Managers
                         PhysicsTweenManager.Instance.PlayTween(tween);
                         break;
                     case CommandID.SeeSawCommand:
+                    {
                         var srcGo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.intValue1);
                         var desGo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.intValue2);
                         var joint = new RevoluteJoint(srcGo.mEntity, desGo.mEntity, command.vector3_1,
                             Vector3.Backward);
-                        PhysicsWorld.Instance.AddJoint(joint);
                         break;
+                    }
                     case CommandID.AutoDisappearCommand:
                         break;
                     case CommandID.TriggerCommand:
@@ -155,6 +170,30 @@ namespace Managers
                             PlayerManager.Instance.myPlayer.mCharacterController.HorizontalMotionConstraint
                                 .MovementDirection = command.vector2_1;
                         break;
+                    case CommandID.HammerCommand:
+                    {
+                        var srcGo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.intValue1);
+                        var desGo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.intValue2);
+                        var joint = new RevoluteJoint(srcGo.mEntity, desGo.mEntity, command.vector3_1,
+                            Vector3.Up);
+                        joint.Motor.isActive = true;
+                        joint.Motor.Settings.mode = MotorMode.VelocityMotor;
+                        joint.Motor.Settings.VelocityMotor.GoalVelocity = 1.5m;
+                        PhysicsWorld.Instance.AddJoint(joint);
+                        break;
+                    }
+                    case CommandID.BolaCommand:
+                    {
+                        var srcGo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.intValue1);
+                        var desGo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.intValue2);
+                        var joint = new RevoluteJoint(srcGo.mEntity, desGo.mEntity, command.vector3_1,
+                            Vector3.Backward);
+                        joint.Motor.isActive = true;
+                        joint.Motor.Settings.mode = MotorMode.VelocityMotor;
+                        joint.Motor.Settings.VelocityMotor.GoalVelocity = 1.5m;
+                        PhysicsWorld.Instance.AddJoint(joint);
+                        break;
+                    }
                 }
             }
         }

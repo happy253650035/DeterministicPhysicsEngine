@@ -121,6 +121,7 @@ namespace BEPUphysics.Character
         }
 
         private Fix64 jumpSpeed;
+        private Fix64 tempJumpSpeed;
         /// <summary>
         /// Gets or sets the speed at which the character leaves the ground when it jumps.
         /// </summary>
@@ -608,9 +609,10 @@ namespace BEPUphysics.Character
                         //The character has traction, so jump straight up.
                         Fix64 currentDownVelocity = Vector3.Dot(Down, relativeVelocity);
                         //Target velocity is JumpSpeed.
+                        if (tempJumpSpeed > 0) jumpSpeed = tempJumpSpeed;
                         Fix64 velocityChange = MathHelper.Max(jumpSpeed + currentDownVelocity, F64.C0);
                         ApplyJumpVelocity(ref supportData, Down * -velocityChange, ref relativeVelocity);
-
+                        tempJumpSpeed = -1;
 
                         //Prevent any old contacts from hanging around and coming back with a negative depth.
                         foreach (var pair in Body.CollisionInformation.Pairs)
@@ -900,11 +902,12 @@ namespace BEPUphysics.Character
         /// If it doesn't have traction, but is still supported by something, it will jump in the direction of the surface normal.</para>
         /// <para>The same effect can be achieved by setting TryToJump to true.</para>
         /// </summary>
-        public void Jump()
+        public void Jump(float s = -1)
         {
             //The actual jump velocities are applied next frame.  This ensures that gravity doesn't pre-emptively slow the jump, and uses more
             //up-to-date support data.
             TryToJump = true;
+            tempJumpSpeed = s;
         }
 
         public override void OnAdditionToSpace(Space newSpace)

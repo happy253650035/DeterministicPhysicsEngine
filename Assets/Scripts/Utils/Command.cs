@@ -22,6 +22,8 @@ namespace Utils
         JumpCommand = 16,
         SprintCommand = 17,
         PlayerMoveCommand = 18,
+        HammerCommand = 19,
+        BolaCommand = 20,
     }
     public struct Command
     {
