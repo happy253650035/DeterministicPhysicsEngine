@@ -145,6 +145,7 @@ namespace Managers
                         var desGo = PhysicsObjectManager.Instance.GetPhysicsObjectById(command.intValue2);
                         var joint = new RevoluteJoint(srcGo.mEntity, desGo.mEntity, command.vector3_1,
                             Vector3.Backward);
+                        PhysicsWorld.Instance.AddJoint(joint);
                         break;
                     }
                     case CommandID.AutoDisappearCommand:
